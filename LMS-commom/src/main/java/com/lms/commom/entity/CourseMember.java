@@ -6,6 +6,7 @@
 package com.lms.commom.entity;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -20,7 +21,6 @@ import lombok.NoArgsConstructor;
  *
  * @author Admin
  */
-
 @Entity
 @Table(name = "course_member")
 @Data
@@ -28,17 +28,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @IdClass(CourseMemberKey.class)
 public class CourseMember implements Serializable {
-    
+
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	@Id
-    private int course_id;
+     *
+     */
+    private static final long serialVersionUID = 1L;
     @Id
-    private int user_id;
+    @Column(name = "course_id")
+    private int courseId;
+    
+    @Id
+    @Column(name = "user_id")
+    private int userId;
     
     private boolean status;
-
-    
 }

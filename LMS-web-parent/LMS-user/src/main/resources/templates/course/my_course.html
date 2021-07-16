@@ -4,13 +4,57 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<html>
+
+<html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>TODO supply a title</title>
+        <title>MY COURSES PAGE</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://kit.fontawesome.com/a7e26ec4f2.js" crossorigin="anonymous"></script>
+        <link href="../static/css/course.css" th:href="@{/css/course.css}" rel="stylesheet"/>
     </head>
     <body>
-        <div>My Course</div>
+        <div class="container-fluid" > 
+            <div th:replace ="nav_bar :: header_menu">
+            </div>
+            <div class="text-center">
+                <h1>All My Course</h1>
+            </div>
+            <div th:if= "${Empty != null}" class="alert alert-danger" role="alert" th:text="${Empty}">
+            </div>
+            <form class='searchbox' style="width: 30rem;">
+                <div class="input-group rounded">
+                    <input class="form-control rounded" aria-label="Search" type="text" placeholder="Search.." aria-describedby="search-addon" ><span class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></span>
+                </div>
+            </form> 
+            <div th:each="Course: ${listCourse}" style="margin-bottom: 20px">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${Course.name}"></h5>
+                        <p class="card-text" th:text="${Course.description}"></p>
+                        <form th:action="@{/#}" method="POST">
+                            <input type="submit" class="btn btn-primary" value="Join" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            const searchEl = document.querySelector('.searchbox');
+            const x = document.querySelectorAll('.card-title, .card-text');
+
+            function search(e) {
+                x.forEach((item, index) => {
+                    if (!item.innerHTML.toLowerCase().includes((e.target.value.toString()).toLowerCase())) {
+                        item.parentElement.style.display = 'none';
+                    } else {
+                        item.parentElement.style.display = 'block';
+                    }
+                })
+            }
+
+            searchEl.addEventListener("keyup", search);
+        </script>
     </body>
 </html>

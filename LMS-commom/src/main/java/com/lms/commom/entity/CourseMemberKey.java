@@ -17,38 +17,38 @@ import javax.persistence.Embeddable;
 public class CourseMemberKey implements Serializable{
     private static final long serialVersionUID = 1L;
     
-    private int course_id;
-    private int user_id;
+    private int courseId;
+    private int userId;
 
     public CourseMemberKey() {
     }
 
-    public CourseMemberKey(int course_id, int user_id) {
-        this.course_id = course_id;
-        this.user_id = user_id;
-    }
-    
-    public int getCourse_id() {
-        return course_id;
+    public CourseMemberKey(int courseId, int userId) {
+        this.courseId = courseId;
+        this.userId = userId;
     }
 
-    public void setCourse_id(int course_id) {
-        this.course_id = course_id;
+    public int getCourseId() {
+        return courseId;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public void setCourseId(int courseId) {
+        this.courseId = courseId;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public int getUserId() {
+        return userId;
     }
-    
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 11 * hash + this.course_id;
-        hash = 11 * hash + this.user_id;
+        int hash = 7;
+        hash = 41 * hash + this.courseId;
+        hash = 41 * hash + this.userId;
         return hash;
     }
 
@@ -64,14 +64,12 @@ public class CourseMemberKey implements Serializable{
             return false;
         }
         final CourseMemberKey other = (CourseMemberKey) obj;
-        if (this.course_id != other.course_id) {
+        if (this.courseId != other.courseId) {
             return false;
         }
-        if (this.user_id != other.user_id) {
+        if (this.userId != other.userId) {
             return false;
         }
         return true;
     }
-    
-    
 }

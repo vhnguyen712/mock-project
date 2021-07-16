@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.lms.commom.entity.CourseMember;
 import com.lms.commom.entity.CourseMemberKey;
+import java.util.List;
 
 /**
  *
@@ -18,5 +19,7 @@ import com.lms.commom.entity.CourseMemberKey;
 
 @Repository
 public interface CourseMemberRepository extends JpaRepository<CourseMember, CourseMemberKey>{
+    
+    List<CourseMember> findByUserId(int userId);
     
 }
