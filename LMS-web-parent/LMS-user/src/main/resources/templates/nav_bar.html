@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+<<<<<<< HEAD
 	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <body>
 <div th:fragment="header_menu">
@@ -74,4 +75,86 @@
 	</nav>
 </div>
 </body>
+=======
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+    <body>
+        <div th:fragment="header_menu">
+            <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+                <a class="navbar-brand" th:href="@{/}"> <img alt="">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#topNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="topNavbar">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/course}">Courses</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/mycourse}">My Course</a>
+                        </li>	
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/cart}">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/cart}">English</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/register}">Register</a>
+                        </li>						
+                        <li class="nav-item" sec:authorize="isAuthenticated() == false">
+                            <a class="nav-link"  th:href="@{/login}">Login</a>
+                        </li>
+
+                        <li>
+                            <span><a class="fas fa-user fa-2x" sec:authorize="isAuthenticated() == true" th:href="@{/profile}"></a></span>
+                        </li>
+                        <li class="nav-item dropdown" >
+                        <th:block sec:authorize="isAuthenticated()">
+                            <a class="nav-link dropdown-toggle"  data-toggle="dropdown"  sec:authentication="name"></a>
+                        </th:block>
+                        <div class="dropdown-menu">
+                            <form th:action="@{/logout}" method="post">
+                                <input type="submit" value="Logout">
+                            </form> 
+                            <a class="nav-link dropdown-toggle"  data-toggle="dropdown" >Grades</a>
+                        </div>
+                        </li>
+                        <li class="nav-item dropdown" sec:authorize="isAuthenticated() == true">
+                            <form th:action="@{/logout}" method="post">
+                                <input type="submit" value="Logout">
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+        </div>
+
+
+        <div th:fragment="footer_menu">
+            <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#bottomNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="bottomNavbar">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/users}">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/products}">Privacy</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </body>
+>>>>>>> 6ca52609f1e2078037616f0d0cf0b36fe3574c23
 </html>

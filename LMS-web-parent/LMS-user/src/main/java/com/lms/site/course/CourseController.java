@@ -22,6 +22,7 @@ import com.lms.commom.entity.Course;
 import com.lms.commom.entity.CourseMember;
 import com.lms.commom.entity.User;
 import com.lms.site.sercurity.MyUserDetail;
+import java.util.ArrayList;
 
 /**
  *
@@ -65,7 +66,20 @@ public class CourseController {
     
     @GetMapping("/mycourse")
     public String showMyCourse(Model model, Authentication authentication) {
+        MyUserDetail userD = (MyUserDetail) authentication.getPrincipal();
+        
+        List<CourseMember> myCourse = memberService.getMyCourse(userD.getUser().getId());
+        
+        List<Course> listCourse = new ArrayList<>();
+        for (CourseMember courseMember : myCourse) {
+            listCourse.add(courseService.getCourse(courseMember.getCourseId()));
+        }
+        if(listCourse!=null)
+        {
+        model.addAttribute("listCourse", listCourse);
+        }else{
+            model.addAttribute("Empty", "No course found.");
+        }
         return "course/my_course";
     }
-    
 }

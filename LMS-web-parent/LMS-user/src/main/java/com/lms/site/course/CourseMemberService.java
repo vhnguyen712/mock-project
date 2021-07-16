@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.lms.commom.entity.CourseMember;
+import java.util.List;
 
 /**
  *
@@ -26,4 +27,9 @@ public class CourseMemberService {
     public void attend(CourseMember member) {
         memberRepository.save(member);
     }
+    
+    public List<CourseMember> getMyCourse(int id) {
+        return memberRepository.findByUserId(id);
+    }
+    
 }
