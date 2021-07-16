@@ -29,9 +29,4 @@ public class MainController {
 		return "redirect:/";
 	}
 
-	@GetMapping("/profile")
-	public String viewProfile(@AuthenticationPrincipal MyUserDetail user, Model model) {
-		model.addAttribute("user", user);
-		return "profile";
-	}
 }

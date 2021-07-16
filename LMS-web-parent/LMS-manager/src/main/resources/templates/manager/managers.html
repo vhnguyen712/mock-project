@@ -30,31 +30,27 @@
 						<th>UserId</th>
 						<th>Email</th>
 						<th>Name</th>
-						<th>Phone</th>
 						<th>Create Time</th>
-						<th>Authentication type</th>
 						<th>Enable</th>
 						<th></th>
 					</tr>	
 				</thead>
 				<tbody>
-					<tr th:each="user: ${listUsers}">
+					<tr th:each="user: ${listManagers}">
 						<td>[[${user.id}]]</td>
 						<td>[[${user.email}]]</td>
 						<td>[[${user.name}]]</td>
-						<td>[[${user.phone}]]</td>
-						<td>[[${user.createTime}]]</td>
-						<td>[[${user.authenticationType}]]</td>
+						<td>[[${user.createDate}]]</td>
 						
 						<td>
-							<a th:if="${user.status == true}" class="fal fa-check-circle" th:href="@{'/users/' + ${user.id} + '/enable/false'}"></a>
-							<a th:if="${user.status == false}" class="fal fa-times-circle" th:href="@{'/users/' + ${user.id} + '/enable/true'}"></a>
+							<a th:if="${user.status == true}" class="fal fa-check-circle" th:href="@{'/managers/' + ${user.id} + '/enable/false'}"></a>
+							<a th:if="${user.status == false}" class="fal fa-times-circle" th:href="@{'/managers/' + ${user.id} + '/enable/true'}"></a>
 							
 						</td>
 						<td>
-							<a class="fas fa-user-edit" th:href="@{'/users/edit/' + ${user.id}}">Edit</a>
+							<a class="fas fa-user-edit" th:href="@{'/managers/edit/' + ${user.id}}">Edit</a>
 						&nbsp; 
-							<a class="fas fa-user-slash link-delete" th:userId="${user.id}" th:href="@{'/users/delete/' + ${user.id}}">Delete</a>
+							<a class="fas fa-user-slash link-delete" th:userId="${user.id}" th:href="@{'/managers/delete/' + ${user.id}}">Delete</a>
 						</td>
 					</tr>
 					
@@ -64,7 +60,7 @@
 	</div>
 </div>
 <div class="text-center">
-			Total User : [[${totalItem}]] - Page [[${pageNum}]] of
+			Total Manager : [[${totalItem}]] - Page [[${pageNum}]] of
 			[[${totalPage}]] &nbsp;  
 			<span
 				th:each="i: ${#numbers.sequence(1, totalPage)}"> <a

@@ -1,4 +1,4 @@
-package com.lms.admin.manager;
+package com.lms.admin.sercurity;
 
 import java.util.ArrayList;
 import java.util.Collection;
