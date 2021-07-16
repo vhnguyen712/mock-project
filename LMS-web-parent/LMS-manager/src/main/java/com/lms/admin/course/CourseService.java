@@ -22,23 +22,30 @@ import com.lms.commom.entity.Manager;
 @Service
 @Transactional
 public class CourseService {
-    
-    @Autowired
-    CourseRepository courseRepository;
-    
-    public List<Course> findAllCourse(){
-        return (List<Course>) courseRepository.findAll(); 
-    }
-            
-    public Course getCourse(int id){
-        return courseRepository.findById(id).get();
-    }
-    
-    public void saveCourse(Course course,Authentication authentication){
-    	MyManagerDetail managerDetail = (MyManagerDetail) authentication.getPrincipal();
-    	
-    	Manager manager = managerDetail.getManager();
-    	course.setManager(manager);
-        courseRepository.save(course);
-    }
+
+	@Autowired
+	CourseRepository courseRepository;
+
+	public List<Course> findAllCourse() {
+		return (List<Course>) courseRepository.findAll();
+	}
+
+	public Course getCourse(int id) {
+		return courseRepository.findById(id).get();
+	}
+
+	public void saveCourse(Course course, Authentication authentication) {
+		MyManagerDetail managerDetail = (MyManagerDetail) authentication.getPrincipal();
+
+		Manager manager = managerDetail.getManager();
+		course.setManager(manager);
+		courseRepository.save(course);
+	}
+
+	public List<Course> listAllCourseOfTeacher(int manager_id) {
+		
+		List<Course> listCourse = courseRepository.listCoursesOfTeacher(manager_id);
+
+		return listCourse;
+	}
 }

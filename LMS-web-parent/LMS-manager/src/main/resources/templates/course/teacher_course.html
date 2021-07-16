@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>ALL COURSES</title>
+        <title>COURSES PAGE</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -18,7 +18,7 @@ and open the template in the editor.
             <div th:replace ="nav_bar :: header_menu">
             </div>
             <div class="text-center">
-                <h1>All Available Course</h1>
+                <h1>All Course</h1>
             </div>
             <div><a th:href="@{/create_course}">Create New Course</a></div>
             <div th:if= "${Empty != null}" class="alert alert-danger" role="alert" th:text="${Empty}">
@@ -33,7 +33,6 @@ and open the template in the editor.
                     <div class="card-body">
                         <h5 class="card-title" th:text="${Course.name}"></h5>
                         <p class="card-text" th:text="${Course.description}"></p>
-                        <a href="#" class="btn btn-primary">Attend</a>
                     </div>
                 </div>
             </div>
