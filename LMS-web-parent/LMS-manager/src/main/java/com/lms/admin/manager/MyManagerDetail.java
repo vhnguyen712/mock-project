@@ -76,4 +76,7 @@ public class MyManagerDetail implements UserDetails {
 		return this.manager;
 	}
 	
+	public int getId() {
+		return manager.getId();
+	}
 }
