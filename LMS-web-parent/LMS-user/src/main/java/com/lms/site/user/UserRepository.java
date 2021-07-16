@@ -22,4 +22,8 @@ public interface UserRepository extends CrudRepository<User, Integer>{
 	@Query(value = "Update User u Set u.failedAttempt = ?1 Where u.email = ?2")
 	@Modifying
 	void updateFailedAttempt(int newFailedAttempt, String email);
+        
+        @Query("Update User u set u.name = ?1 , u.phone = ?2 Where u.id = ?3")
+        @Modifying
+        void updateProfile(String name, String phone, int id);
 }

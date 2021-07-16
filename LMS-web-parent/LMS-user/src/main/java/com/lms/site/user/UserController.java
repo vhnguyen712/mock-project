@@ -14,11 +14,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.lms.commom.entity.User;
 import com.lms.site.Utility;
+import com.lms.site.sercurity.MyUserDetail;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 
 
 @Controller
 public class UserController {
-
+        
+        @Autowired
+        UserRepository userRepository;
+        
 	@Autowired
 	UserService userService;
 
@@ -47,5 +54,17 @@ public class UserController {
 		return "register/" + (verify ? "verify_success" : "verify_fail");
 	}
 
-
+	@GetMapping("/profile")
+	public String viewProfile(@AuthenticationPrincipal MyUserDetail user, Model model) {
+		model.addAttribute("user", user.getUser());
+		return "profile";
+	}
+        
+        
+	@PostMapping("/edit_profile")
+	public String editProfile(@ModelAttribute("user") User user, @AuthenticationPrincipal MyUserDetail userdl) {
+                user.setId(userdl.getUser().getId());
+                userService.updateUserProfile(user);
+		return "/profile";
+	}
 }
