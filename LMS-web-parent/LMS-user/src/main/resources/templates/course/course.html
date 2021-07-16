@@ -40,11 +40,6 @@ and open the template in the editor.
                             <form th:action="@{/attend}" method="POST" th:object="${member}">
                                 <input type="hidden" id="course_id" name="course_id" th:value="${Course.id}"/>
                                 <input type="hidden" id="user_id" name="user_id" th:value="${user.id}"/>
-<<<<<<< HEAD
-=======
-                                <input type="hidden" id="courseId" name="courseId" th:value="${Course.id}"/>
-                                <input type="hidden" id="userId" name="userId" th:value="${user.id}"/>
->>>>>>> a879543ee375774148a4273dbaf3881c982c474f
                                 <input type="hidden" id="status" name="status" th:value="${true}"/>
                                 <input type="submit" class="btn btn-primary" value="Attend" />
                             </form>

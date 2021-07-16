@@ -20,15 +20,9 @@
             <artifactId>spring-boot-devtools</artifactId>
         </dependency>
         <dependency>
-<<<<<<< HEAD
-            <groupId>${project.groupId}</groupId>
-            <artifactId>LMS-commom</artifactId>
-            <version>${project.version}</version>
-=======
             <groupId>com.lms</groupId>
             <artifactId>LMS-commom</artifactId>
             <version>0.0.1-SNAPSHOT</version>
->>>>>>> a879543ee375774148a4273dbaf3881c982c474f
             <type>jar</type>
         </dependency>
     </dependencies>
@@ -39,8 +33,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-<<<<<<< HEAD
-=======
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -49,7 +41,6 @@
                     <debug>false</debug>
                 </configuration>
             </plugin>
->>>>>>> a879543ee375774148a4273dbaf3881c982c474f
         </plugins>
     </build>
 

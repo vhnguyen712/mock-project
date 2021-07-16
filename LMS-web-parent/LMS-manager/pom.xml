@@ -20,15 +20,9 @@
             <artifactId>spring-boot-devtools</artifactId>
         </dependency>
         <dependency>
-<<<<<<< HEAD
-            <groupId>${project.groupId}</groupId>
-            <artifactId>LMS-commom</artifactId>
-            <version>${project.version}</version>
-=======
             <groupId>com.lms</groupId>
             <artifactId>LMS-commom</artifactId>
             <version>0.0.1-SNAPSHOT</version>
->>>>>>> a879543ee375774148a4273dbaf3881c982c474f
             <type>jar</type>
         </dependency>
         <dependency>
