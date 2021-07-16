@@ -19,9 +19,6 @@
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/course}">Courses</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/mycourse}">My Course</a>
-                        </li>
                         <th:block sec:authorize ="!isAuthenticated()">
                             <li class="nav-item">
                                 <a class="nav-link" th:href="@{/register}">Register</a>
