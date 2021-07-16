@@ -1,10 +1,11 @@
-package com.lms.admin.manager;
+package com.lms.admin.sercurity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import com.lms.admin.manager.ManagerRepository;
 import com.lms.commom.entity.Manager;
 
 public class MyManagerDetailService implements UserDetailsService {

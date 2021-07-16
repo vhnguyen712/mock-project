@@ -1,9 +1,6 @@
-package com.lms.admin.user;
+package com.lms.admin.manager;
 
-import java.io.IOException;
 import java.util.List;
-
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,24 +11,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.lms.commom.entity.User;
+import com.lms.commom.entity.Manager;
 
 @Controller
-public class UserController {
-	
-	@Autowired
-	UserService userService;
+public class ManagerController {
 
-	@GetMapping("/users")
+	@Autowired
+	ManagerService managerService;
+	
+	@GetMapping("/managers")
 	public String listFirstPage(Model model) {
 		
 		return listByPage(1, model, null);
 	}
 	
-	@GetMapping("/users/page/{pageNum}")
+	@GetMapping("/managers/page/{pageNum}")
 	public String listByPage(@PathVariable("pageNum")int pageNum, Model model,@Param("keyword") String keyword) {
-		Page<User> page = userService.listByPage(pageNum, keyword );
-		List<User> listUsers = page.getContent();
+		Page<Manager> page = managerService.listByPage(pageNum, keyword );
+		List<Manager> listManagers = page.getContent();
 
 		long totalItem = page.getTotalElements();
 		int totalPage = page.getTotalPages();
@@ -39,31 +36,20 @@ public class UserController {
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("totalItem", totalItem);
 		model.addAttribute("totalPage", totalPage);
-		model.addAttribute("listUsers", listUsers);
+		model.addAttribute("listManagers", listManagers);
 		model.addAttribute("keyword", keyword);
 		
-		return "user/users";
+		return "manager/managers";
 	}
 	
-	
-	@GetMapping("/users/{id}/enable/{status}")
+	@GetMapping("/managers/{id}/enable/{status}")
 	public String updateEnable(@PathVariable("id")Integer id,@PathVariable("status") boolean enable,RedirectAttributes redirectAttributes) {
 		
-		userService.updateEnable(id, enable);
+		managerService.updateEnable(id, enable);
 		String msg = enable ? "Enabled" : "Disable";
 		
 		redirectAttributes.addFlashAttribute("message", msg);
 		
-		return "redirect:/user";
-	}
-	
-	@GetMapping("/users/export/csv")
-	public void exportCSV(HttpServletResponse response) throws IOException {
-		
-		List<User> listUsers = userService.getListUsers();
-		
-		UserCsvExporter  exporter = new UserCsvExporter();
-		
-		exporter.export(listUsers, response);
+		return "redirect:/managers";
 	}
 }
