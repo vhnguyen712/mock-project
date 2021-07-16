@@ -5,6 +5,9 @@
  */
 package com.lms.admin.course;
 
+import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -17,4 +20,6 @@ import com.lms.commom.entity.Course;
 @Repository
 public interface CourseRepository extends CrudRepository<Course, Integer>{
     
+	@Query("Select c From Course c Where manager_id = ?1 ")
+	List<Course> listCoursesOfTeacher(int manager_id);
 }

@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.lms.admin.manager.MyManagerDetail;
 import com.lms.commom.entity.Course;
 
 /**
@@ -54,5 +55,21 @@ public class CourseController {
     	courseService.saveCourse(course,authentication);
     	
     	return "redirect:/course";
+    }
+    
+    @GetMapping("/teacher_course")
+    public String getTeacherCourse(Model model) {
+    	
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	
+    	MyManagerDetail managerDetail = (MyManagerDetail) authentication.getPrincipal();
+
+		int manager_id = managerDetail.getId();
+    	
+    	List<Course> listCourse = courseService.listAllCourseOfTeacher(manager_id);
+    	
+    	model.addAttribute("listCourse", listCourse);
+    	
+    	return "course/teacher_course";
     }
 }
