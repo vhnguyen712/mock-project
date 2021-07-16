@@ -15,7 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.lms.admin.manager.MyManagerDetail;
+import com.lms.admin.sercurity.MyManagerDetail;
 import com.lms.commom.entity.Course;
 import com.lms.commom.entity.Manager;
 

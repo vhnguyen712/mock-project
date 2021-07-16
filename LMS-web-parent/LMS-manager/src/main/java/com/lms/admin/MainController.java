@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.lms.admin.manager.MyManagerDetail;
+import com.lms.admin.sercurity.MyManagerDetail;
 
 
 @Controller
