@@ -36,6 +36,7 @@ and open the template in the editor.
                     <div class="card-body">
                         <h5 class="card-title" th:text="${Course.name}"></h5>
                         <p class="card-text" th:text="${Course.description}"></p>
+                        <p class="card-text" th:text="Author: + ${Course.Manager.name"></p>
                         <th:block sec:authorize="isAuthenticated()">
                             <form th:action="@{/attend}" method="POST" th:object="${member}">
                                 <input type="hidden" id="course_id" name="course_id" th:value="${Course.id}"/>
