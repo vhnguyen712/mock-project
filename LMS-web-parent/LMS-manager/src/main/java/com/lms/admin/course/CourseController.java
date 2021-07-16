@@ -8,11 +8,14 @@ package com.lms.admin.course;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.lms.admin.manager.MyManagerDetail;
@@ -29,16 +32,27 @@ public class CourseController {
     CourseService courseService;
     
     @GetMapping("/course")
-    public String showCourse(Model model){
-        List<Course> listCourse = courseService.findAllCourse();
-        if(listCourse!=null)
-        {
-        model.addAttribute("listCourse", listCourse);
-        }else{
-            model.addAttribute("Empty", "No course found.");
-        }
-        return "course/course";
+    public String showFirstPage(Model model){
+       
+        return listByPage(1, model, null);
     }
+    
+	@GetMapping("/course/page/{pageNum}")
+	public String listByPage(@PathVariable("pageNum")int pageNum, Model model,@Param("keyword") String keyword) {
+		Page<Course> page = courseService.listByPage(pageNum, keyword );
+		List<Course> listCourses = page.getContent();
+
+		long totalItem = page.getTotalElements();
+		int totalPage = page.getTotalPages();
+		
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("totalItem", totalItem);
+		model.addAttribute("totalPage", totalPage);
+		model.addAttribute("listCourses", listCourses);
+		model.addAttribute("keyword", keyword);
+		
+		return "course/course";
+	}
     
     @GetMapping("/create_course")
     public String showCreateCourse(Model model) {
