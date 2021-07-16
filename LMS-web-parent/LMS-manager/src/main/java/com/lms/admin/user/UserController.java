@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,7 +55,7 @@ public class UserController {
 		
 		redirectAttributes.addFlashAttribute("message", msg);
 		
-		return "redirect:/user";
+		return "redirect:/users";
 	}
 	
 	@GetMapping("/users/export/csv")
@@ -65,5 +66,18 @@ public class UserController {
 		UserCsvExporter  exporter = new UserCsvExporter();
 		
 		exporter.export(listUsers, response);
+	}
+	
+	@GetMapping("/users/delete/{id}")
+	public String deleteUser(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes, Model model) {
+
+		try {
+			userService.delete(id);
+			redirectAttributes.addFlashAttribute("message", "The user have been deleted");
+
+		} catch (UsernameNotFoundException e) {
+			redirectAttributes.addFlashAttribute("message", e.getMessage());
+		}
+		return "redirect:/users";
 	}
 }

@@ -37,4 +37,9 @@ public class UserService {
 	public void updateEnable(Integer id, boolean enable) {
 		userRepository.enableUser(id, enable);
 	}
+	
+	public void delete(int user_id) {
+		userRepository.deleteById(user_id);
+	}
+	
 }

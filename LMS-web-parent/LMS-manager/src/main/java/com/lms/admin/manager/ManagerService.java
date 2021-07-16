@@ -36,4 +36,8 @@ public class ManagerService {
 	public void updateEnable(Integer id, boolean enable) {
 		managerRepository.enableManager(id, enable);
 	}
+	
+	public void delete(int id) {
+		managerRepository.deleteById(id);
+	}
 }
