@@ -14,7 +14,7 @@ and open the template in the editor.
         <link href="../static/css/course.css" th:href="@{/css/course.css}" rel="stylesheet"/>
     </head>
     <body>
-        <div class="container-fluid" > 
+        <div class="container-fluid" >
             <div th:replace ="nav_bar :: header_menu">
             </div>
             <div class="text-center">
@@ -27,7 +27,7 @@ and open the template in the editor.
                 <div class="input-group rounded">
                     <input class="form-control rounded" aria-label="Search" type="text" placeholder="Search.." aria-describedby="search-addon" ><span class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></span>
                 </div>
-            </form> 
+            </form>
             <div th:each="Course: ${listCourse}" style="margin-bottom: 20px">
                 <div class="card">
                     <div class="card-body">

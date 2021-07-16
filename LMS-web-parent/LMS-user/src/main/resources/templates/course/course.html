@@ -12,11 +12,14 @@ and open the template in the editor.
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <script src="https://kit.fontawesome.com/a7e26ec4f2.js" crossorigin="anonymous"></script>
         <link href="../static/css/course.css" th:href="@{/css/course.css}" rel="stylesheet"/>
+        <th:block th:insert="~{fragments :: link}"></th:block>
+
+        <th:block th:insert="~{fragments :: head/script}"></th:block>
     </head>
     <body>
-        <div class="container-fluid" > 
-            <div th:replace ="nav_bar :: header_menu">
-            </div>
+    <div th:replace ="nav_bar :: header_menu">
+    </div>
+        <div class="container-fluid" >
             <div class="text-center">
                 <h1>All Available Course</h1>
             </div>
