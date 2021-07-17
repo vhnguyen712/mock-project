@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -55,6 +56,9 @@ public class Manager {
 		this.createDate = createDate;
 		this.status = status;
 	}
-	
+        
+        @OneToMany
+        @JoinColumn (name = "manager_id")
+	private Set<Course> courses;
 	
 }

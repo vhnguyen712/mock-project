@@ -44,5 +44,5 @@ public class CourseService {
     public Course getCourse(int id){
         return courseRepository.findById(id).get();
     }
-    
+
 }

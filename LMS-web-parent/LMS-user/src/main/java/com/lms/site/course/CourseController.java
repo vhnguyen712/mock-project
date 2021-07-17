@@ -88,11 +88,6 @@ public class CourseController {
         return "redirect:/course";
     }
     
-//    @GetMapping("/course")
-//    public String showCourse(Model model){
-//            
-//    }
-    
     @GetMapping("/mycourse")
     public String showMyCourse(Model model, Authentication authentication) {
         MyUserDetail userD = (MyUserDetail) authentication.getPrincipal();
