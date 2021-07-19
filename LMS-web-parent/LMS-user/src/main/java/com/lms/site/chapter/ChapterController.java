@@ -6,12 +6,14 @@
 package com.lms.site.chapter;
 
 import com.lms.commom.entity.Chapter;
-import com.lms.commom.entity.Course;
+import com.lms.commom.entity.CourseMember;
+import com.lms.site.course.CourseService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 /**
  *
@@ -23,13 +25,13 @@ public class ChapterController {
     @Autowired
     ChapterService chapterService;
     
+    @Autowired
+    CourseService courseService;
+    
     @GetMapping("/join")
-    public String showChapter(Model model) {
-        List<Chapter> chapterByCourseId = chapterService.getChapterByCourseId(1);
+    public String showChapter(@ModelAttribute("member") CourseMember member, Model model) {
         
-        for (Chapter chapter : chapterByCourseId) {
-            System.out.println(chapter.getName());
-        }
+        List<Chapter> chapterByCourseId = chapterService.getChapterByCourseId(member.getCourseId());
         
         model.addAttribute("chapter", chapterByCourseId);
         return "course/course_resource";

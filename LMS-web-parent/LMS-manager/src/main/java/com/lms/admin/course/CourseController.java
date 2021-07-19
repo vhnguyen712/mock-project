@@ -91,10 +91,4 @@ public class CourseController {
 
         return "course/teacher_course";
     }
-    
-    @GetMapping("/join")
-    public String joinCourse(@ModelAttribute("course") Course course, Model model) {
-        System.out.println(course.getId());
-        return "course/course-resource";
-    }
 }

@@ -29,7 +29,7 @@ public class ChapterService {
         return repository.findById(1).get();
     }
     
-    List<Chapter> getChapterByCourseId(int courseId) {
+    List<Chapter> getChapterByCourseIdCheat(int courseId) {
         List<Chapter> findAll = repository.findAll();
         List<Chapter> found = new ArrayList<>();
         for (Chapter chapter : findAll) {
@@ -40,4 +40,7 @@ public class ChapterService {
         return found;
     }
     
+    List<Chapter> getChapterByCourseId(int id) {
+        return repository.findByCourse_Id(id);
+    }
 }
