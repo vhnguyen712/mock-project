@@ -52,4 +52,17 @@ public class ManagerController {
 		
 		return "redirect:/managers";
 	}
+	
+//	@GetMapping("/managers/delete/{id}")
+//	public String deleteUser(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes, Model model) {
+//
+//		try {
+//			managerService.delete(id);
+//			redirectAttributes.addFlashAttribute("message", "The manager have been deleted");
+//
+//		} catch (UsernameNotFoundException e) {
+//			redirectAttributes.addFlashAttribute("message", e.getMessage());
+//		}
+//		return "redirect:/managers";
+//	}
 }

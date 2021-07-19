@@ -15,56 +15,85 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.lms.commom.entity.User;
 import com.lms.site.Utility;
 import com.lms.site.sercurity.MyUserDetail;
+import java.security.Principal;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
-
 @Controller
 public class UserController {
-        
-        @Autowired
-        UserRepository userRepository;
-        
-	@Autowired
-	UserService userService;
 
-	@GetMapping("/register")
-	public String showRegisterForm(Model model) {
-		
-		model.addAttribute("user", new User());
-		
-		return "register/register";
-	}
-	
-	@PostMapping("/create_user")
-	public String createCustomer(User user,HttpServletRequest request) throws UnsupportedEncodingException, MessagingException {
-		userService.registerUser(user);
-		String siteURL = Utility.getSite(request);
+    @Autowired
+    UserRepository userRepository;
 
-		userService.sendVerificationEmail(user, siteURL);
-		
-		return "register/register_success";
-	}
-	
-	@GetMapping("/verify")
-	public String verifyAccount(@Param("code")String code, Model model) {
-		boolean verify = userService.verify(code);
-		
-		return "register/" + (verify ? "verify_success" : "verify_fail");
-	}
+    @Autowired
+    UserService userService;
 
-	@GetMapping("/profile")
-	public String viewProfile(@AuthenticationPrincipal MyUserDetail user, Model model) {
-		model.addAttribute("user", user.getUser());
-		return "profile";
-	}
-        
-        
-	@PostMapping("/edit_profile")
-	public String editProfile(@ModelAttribute("user") User user, @AuthenticationPrincipal MyUserDetail userdl) {
-                user.setId(userdl.getUser().getId());
-                userService.updateUserProfile(user);
-		return "/profile";
-	}
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+    @GetMapping("/register")
+    public String showRegisterForm(Model model) {
+
+        model.addAttribute("user", new User());
+
+        return "register/register";
+    }
+
+    @PostMapping("/create_user")
+    public String createCustomer(User user, HttpServletRequest request) throws UnsupportedEncodingException, MessagingException {
+        userService.registerUser(user);
+        String siteURL = Utility.getSite(request);
+
+        userService.sendVerificationEmail(user, siteURL);
+
+        return "register/register_success";
+    }
+
+    @GetMapping("/verify")
+    public String verifyAccount(@Param("code") String code, Model model) {
+        boolean verify = userService.verify(code);
+
+        return "register/" + (verify ? "verify_success" : "verify_fail");
+    }
+
+    @GetMapping("/profile")
+    public String viewProfile(Model model, @AuthenticationPrincipal MyUserDetail user) {
+        model.addAttribute("user", user.getUser());
+        return "profile";
+    }
+
+    @PostMapping("/edit_profile")
+    public String editProfile(@ModelAttribute("user") User user, @AuthenticationPrincipal MyUserDetail userdl, Model model) {
+        user.setId(userdl.getUser().getId());
+        userService.updateUserProfile(user);
+        model.addAttribute("SUCCESS", "Update profile successful !");
+        return "/profile";
+    }
+
+    @PostMapping("/change_password")
+    public String changePassword(@AuthenticationPrincipal MyUserDetail userdl, HttpServletRequest request, Model model) {
+        String current = userdl.getPassword();
+        String oldpass = request.getParameter("oldpassword");
+        String newpass = request.getParameter("newpassword");
+        String confirm = request.getParameter("confirmpassword");
+        if (passwordEncoder.matches(oldpass, current)) {
+            if (newpass.equals(confirm)) {
+                String encode = passwordEncoder.encode(newpass);
+                userService.changePassword(encode, userdl.getUser().getId());
+                model.addAttribute("SUCCESS", "Chasnge password successful !");
+                return "index";
+            } else {
+                model.addAttribute("ERROR", "Confirm password not match, change's not saved.");
+                return "index";
+            }
+        }
+        model.addAttribute("ERROR", "Your current password is wrong, change's not saved.");
+        return "index";
+
+    }
 }

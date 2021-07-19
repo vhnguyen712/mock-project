@@ -109,10 +109,4 @@ public class CourseController {
         model.addAttribute("member", member);
         return "course/my_course";
     }
-
-    @GetMapping("/join")
-    public String joinCourse(@ModelAttribute("member") CourseMember member, Model model, Authentication authentication) {
-        System.out.println(member.getCourseId());
-        return "course/course-resource";
-    }
 }
