@@ -13,18 +13,22 @@ and open the template in the editor.
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <script src="https://kit.fontawesome.com/a7e26ec4f2.js" crossorigin="anonymous"></script>
         <link href="../static/css/course.css" th:href="@{/css/course.css}" rel="stylesheet"/>
-        <th:block th:insert="~{fragments :: link}"></th:block>
+    <th:block th:insert="~{fragments :: link}"></th:block>
 
-        <th:block th:insert="~{fragments :: head/script}"></th:block>
-    </head>
-    <body>
+    <th:block th:insert="~{fragments :: head/script}"></th:block>
+</head>
+<body>
     <div th:replace ="nav_bar :: header_menu">
     </div>
-        <div class="container-fluid" >
-            <div class="text-center">
-                <h1>All Available Course</h1>
-            </div>
-            <div th:if= "${Empty != null}" class="alert alert-danger" role="alert" th:text="${Empty}">
+    <div class="container-fluid" >
+        <div class="text-center">
+            <h1>All Available Course</h1>
+        </div>
+        <div th:if= "${Empty != null}" class="alert alert-danger" role="alert" th:text="${Empty}">
+        </div>
+        <form class='searchbox' style="width: 30rem;">
+            <div class="input-group rounded">
+                <input class="form-control rounded" aria-label="Search" type="text" placeholder="Search.." aria-describedby="search-addon" ><span class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></span>
             </div>
             <form class='searchbox' style="width: 30rem;">
                 <div class="input-group rounded">
@@ -39,44 +43,62 @@ and open the template in the editor.
                         Author: <span class="card-text" th:text="${Course.manager.name}"></span>
                          <th:block sec:authorize="isAuthenticated()">
                             <form th:action="@{/attend}" method="POST" th:object="${member}">
-                                <input type="hidden" id="course_id" name="course_id" th:value="${Course.id}"/>
-                                <input type="hidden" id="user_id" name="user_id" th:value="${user.id}"/>
+                                <input type="hidden" id="courseId" name="courseId" th:value="${Course.id}"/>
+                                <input type="hidden" id="userId" name="userId" th:value="${user.id}"/>
                                 <input type="hidden" id="status" name="status" th:value="${true}"/>
                                 <input type="submit" class="btn btn-primary" value="Attend" />
                             </form>
                         </th:block>
                     </div>
+=======
+        </form> 
+        <div th:each="Course: ${listCourse}" style="margin-bottom: 20px">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${Course.name}"></h5>
+                    <span class="card-text" th:text="${Course.description}"></span></br>
+                    Author: <span class="card-text" th:text="${Course.manager.name}"></span>
+                    <th:block sec:authorize="isAuthenticated()">
+                        <form th:action="@{/attend}" method="POST" th:object="${member}">
+                            <input type="hidden" id="courseId" name="courseId" th:value="${Course.id}"/>
+                            <input type="hidden" id="userId" name="userId" th:value="${user.id}"/>
+                            <input type="hidden" id="status" name="status" th:value="${true}"/>
+                            <input type="submit" class="btn btn-primary" value="Attend" />
+                        </form>
+                    </th:block>
+>>>>>>> 7c7b2375ec9114516f8b55023f56753b0f758491
                 </div>
             </div>
         </div>
-        <div class="text-center">
-			Total Course : [[${totalItem}]] - Page [[${pageNum}]] of
-			[[${totalPage}]] &nbsp;  
-			<span
-				th:each="i: ${#numbers.sequence(1, totalPage)}"> <a
-				th:if="${i != pageNum}" th:href="@{'/course/page/' +${i}}">
-					[[${i}]] </a> <span th:unless="${i != pageNum}">[[${i}]] </span>
-				&nbsp;&nbsp;
-			</span>
-</div> 
-        </div>
+    </div>
+    <div class="text-center">
+        Total Course : [[${totalItem}]] - Page [[${pageNum}]] of
+        [[${totalPage}]] &nbsp;  
+        <span
+            th:each="i: ${#numbers.sequence(1, totalPage)}"> <a
+                th:if="${i != pageNum}" th:href="@{'/course/page/' +${i}}">
+                [[${i}]] </a> <span th:unless="${i != pageNum}">[[${i}]] </span>
+            &nbsp;&nbsp;
+        </span>
+    </div> 
+</div>
 <div th:replace ="nav_bar :: footer_menu">
 </div>
-        <script>
-            const searchEl = document.querySelector('.searchbox');
-            const x = document.querySelectorAll('.card-title, .card-text');
+<script>
+    const searchEl = document.querySelector('.searchbox');
+    const x = document.querySelectorAll('.card-title, .card-text');
 
-            function search(e) {
-                x.forEach((item, index) => {
-                    if (!item.innerHTML.toLowerCase().includes((e.target.value.toString()).toLowerCase())) {
-                        item.parentElement.style.display = 'none';
-                    } else {
-                        item.parentElement.style.display = 'block';
-                    }
-                })
+    function search(e) {
+        x.forEach((item, index) => {
+            if (!item.innerHTML.toLowerCase().includes((e.target.value.toString()).toLowerCase())) {
+                item.parentElement.style.display = 'none';
+            } else {
+                item.parentElement.style.display = 'block';
             }
+        })
+    }
 
-            searchEl.addEventListener("keyup", search);
-        </script>
-    </body>
+    searchEl.addEventListener("keyup", search);
+</script>
+</body>
 </html>

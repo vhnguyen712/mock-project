@@ -33,7 +33,7 @@ public class CourseRepoTest {
 	@Test
 	public void testAddChapter() {
 		
-		Course course = manager.find(Course.class, 11);
+		Course course = manager.find(Course.class, 1);
 		
 		Chapter chapter2 = new Chapter(4,"chapter3", "haha3", course);
 		
@@ -46,7 +46,7 @@ public class CourseRepoTest {
 	@Test
 	public void testAddReSourseForChapter() {
 		
-		Chapter chapter = manager.find(Chapter.class, 1);
+		Chapter chapter = manager.find(Chapter.class, 2);
 		
 		Resources resources = new Resources(1,"Day la resources",chapter);
 		

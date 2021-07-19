@@ -31,7 +31,7 @@ public class UserService {
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;
-	
+        
 	@Autowired
 	JavaMailSender mailSender;
 	
@@ -130,5 +130,9 @@ public class UserService {
         
         public void updateUserProfile(User user){
                 userRepository.updateProfile(user.getName(), user.getPhone(), user.getId());
+        }
+        
+        public void changePassword(String password, int id){
+                userRepository.changePassword(password, id);
         }
 }
