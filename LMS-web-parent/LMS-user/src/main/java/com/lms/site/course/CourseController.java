@@ -87,7 +87,7 @@ public class CourseController {
         memberService.attend(member);
         return "redirect:/course";
     }
-    
+
     @GetMapping("/mycourse")
     public String showMyCourse(Model model, Authentication authentication) {
         MyUserDetail userD = (MyUserDetail) authentication.getPrincipal();
@@ -103,6 +103,10 @@ public class CourseController {
         } else {
             model.addAttribute("Empty", "No course found.");
         }
+        
+        CourseMember member = new CourseMember();
+        
+        model.addAttribute("member", member);
         return "course/my_course";
     }
 }

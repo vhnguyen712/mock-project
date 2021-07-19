@@ -22,26 +22,26 @@ import com.lms.commom.entity.Course;
 @Service
 @Transactional
 public class CourseService {
-    
+
     private static final int COURSE_PER_PAGE = 4;
-	@Autowired
+    @Autowired
     CourseRepository courseRepository;
-    
-    public List<Course> findAllCourse(){
-        return (List<Course>) courseRepository.findAll(); 
+
+    public List<Course> findAllCourse() {
+        return (List<Course>) courseRepository.findAll();
     }
-            
-	public Page<Course> listByPage(int pageNum, String keyword) { 
-		Pageable pageable = PageRequest.of(pageNum - 1, COURSE_PER_PAGE);
-		
-		if (keyword != null) {
-			return courseRepository.findAll(keyword, pageable);
-		}
-		
-		return courseRepository.findAll(pageable);
-	}
-    
-    public Course getCourse(int id){
+
+    public Page<Course> listByPage(int pageNum, String keyword) {
+        Pageable pageable = PageRequest.of(pageNum - 1, COURSE_PER_PAGE);
+
+        if (keyword != null) {
+            return courseRepository.findAll(keyword, pageable);
+        }
+
+        return courseRepository.findAll(pageable);
+    }
+
+    public Course getCourse(int id) {
         return courseRepository.findById(id).get();
     }
 

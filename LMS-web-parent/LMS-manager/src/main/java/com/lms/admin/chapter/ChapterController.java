@@ -4,6 +4,7 @@ import com.lms.admin.course.CourseService;
 import com.lms.commom.entity.Chapter;
 import com.lms.commom.entity.Course;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ChapterController {
@@ -39,4 +39,13 @@ public class ChapterController {
         return "redirect:/teacher_course";
     }
     
+    @GetMapping("/join")
+    public String showChapter(@ModelAttribute("course") Course course, Model model) {
+
+        List<Chapter> chapterByCourseId = chapterService.getChapterByCourseId(course.getId());
+
+        model.addAttribute("chapter", chapterByCourseId);
+        return "course/course_resource";
+    }
+
 }

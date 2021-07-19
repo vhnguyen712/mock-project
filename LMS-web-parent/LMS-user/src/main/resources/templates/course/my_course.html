@@ -5,7 +5,8 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <head>
         <title>MY COURSES PAGE</title>
         <meta charset="UTF-8">
@@ -36,7 +37,8 @@ and open the template in the editor.
                     <div class="card-body">
                         <h5 class="card-title" th:text="${Course.name}"></h5>
                         <p class="card-text" th:text="${Course.description}"></p>
-                        <form th:action="@{/#}" method="POST">
+                        <form th:action="@{/join}" method="GET" th:object="${member}" >
+                            <input type="hidden" id="courseId" name="courseId" th:value="${Course.id}"/>
                             <input type="submit" class="btn btn-primary" value="Join" />
                         </form>
                     </div>
