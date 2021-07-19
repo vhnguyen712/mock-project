@@ -63,4 +63,8 @@ public class CourseService {
 
 		return listCourse;
 	}
+        
+        public Course findCourseById(int id){
+            return courseRepository.findById(id).get();
+        }
 }
