@@ -5,16 +5,21 @@ import java.util.Date;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.authentication.RememberMeAuthenticationToken;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.lms.commom.entity.AuthenticationType;
 import com.lms.commom.entity.User;
+import com.lms.site.sercurity.oauth.MyOauth2User;
 
 import net.bytebuddy.utility.RandomString;
 
@@ -135,4 +140,46 @@ public class UserService {
         public void changePassword(String password, int id){
                 userRepository.changePassword(password, id);
         }
+
+		public void addCustomerUponOauth2Login(String name, String email, AuthenticationType authenticationType) {
+			
+			User user = new User();
+			user.setEmail(email);
+			user.setName(name);
+			user.setStatus(true);
+			user.setCreateTime(new Date());
+			user.setPass(null);
+			user.setAuthenticationType(authenticationType);
+
+			userRepository.save(user);
+			
+		}
+
+		public void updateAuthenticationType(User user, AuthenticationType type) {
+
+			if (!user.getAuthenticationType().equals(type)) {
+				userRepository.updateAuthenticationType(user.getId(), type);
+			}
+		}
+
+		public String getEmailOfAuthenticatedCustomer(HttpServletRequest request) {
+			Object principal = request.getUserPrincipal();
+
+			if (principal == null) return null;
+			
+			String email = null;
+
+			if (principal instanceof UsernamePasswordAuthenticationToken
+					|| principal instanceof RememberMeAuthenticationToken) {
+				email = request.getUserPrincipal().getName();
+			} else if (principal instanceof OAuth2AuthenticationToken) {
+				
+				OAuth2AuthenticationToken oAuth2AuthenticationToken = (OAuth2AuthenticationToken) principal;
+				MyOauth2User oauth2User = (MyOauth2User) oAuth2AuthenticationToken.getPrincipal();
+				email = oauth2User.getEmail();
+			}
+
+			return email;
+		
+		}
 }
