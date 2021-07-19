@@ -35,75 +35,84 @@ import com.lms.site.sercurity.MyUserDetail;
 @Controller
 public class CourseController {
 
-	@Autowired
-	CourseService courseService;
+    @Autowired
+    CourseService courseService;
 
-	@Autowired
-	CourseMemberService memberService;
-	
-	   @GetMapping("/course")
-	    public String showFirstPage(Model model){
-	       
-	        return listByPage(1, model, null);
-	    }
-	    
-		@GetMapping("/course/page/{pageNum}")
-		public String listByPage(@PathVariable("pageNum")int pageNum, Model model,@Param("keyword") String keyword) {
-			
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			
-			MyUserDetail userD = (MyUserDetail) authentication.getPrincipal();
+    @Autowired
+    CourseMemberService memberService;
 
-			User user = userD.getUser();
+    @GetMapping("/course")
+    public String showFirstPage(Model model) {
 
-			
-			Page<Course> page = courseService.listByPage(pageNum, keyword );
-			List<Course> listCourses = page.getContent();
+        return listByPage(1, model, null);
+    }
 
-			CourseMember member = new CourseMember();
-			model.addAttribute("member", member);
-			model.addAttribute("user", user);
-			
-			if (listCourses != null) {
-				model.addAttribute("listCourse", listCourses);
-			} else {
-				model.addAttribute("Empty", "No course found.");
-			}
-			
-			long totalItem = page.getTotalElements();
-			int totalPage = page.getTotalPages();
-			
-			model.addAttribute("pageNum", pageNum);
-			model.addAttribute("totalItem", totalItem);
-			model.addAttribute("totalPage", totalPage);
-			model.addAttribute("listCourses", listCourses);
-			model.addAttribute("keyword", keyword);
-			
-			return "course/course";
-		}
+    @GetMapping("/course/page/{pageNum}")
+    public String listByPage(@PathVariable("pageNum") int pageNum, Model model, @Param("keyword") String keyword) {
 
-	@PostMapping("/attend")
-	public String attendCourse(@ModelAttribute("member") CourseMember member)
-			throws UnsupportedEncodingException, MessagingException {
-		memberService.attend(member);
-		return "redirect:/course";
-	}
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-	@GetMapping("/mycourse")
-	public String showMyCourse(Model model, Authentication authentication) {
-		MyUserDetail userD = (MyUserDetail) authentication.getPrincipal();
+        MyUserDetail userD = (MyUserDetail) authentication.getPrincipal();
 
-		List<CourseMember> myCourse = memberService.getMyCourse(userD.getUser().getId());
+        User user = userD.getUser();
 
-		List<Course> listCourse = new ArrayList<>();
-		for (CourseMember courseMember : myCourse) {
-			listCourse.add(courseService.getCourse(courseMember.getCourseId()));
-		}
-		if (listCourse != null) {
-			model.addAttribute("listCourse", listCourse);
-		} else {
-			model.addAttribute("Empty", "No course found.");
-		}
-		return "course/my_course";
-	}
+        Page<Course> page = courseService.listByPage(pageNum, keyword);
+        List<Course> listCourses = page.getContent();
+
+        CourseMember member = new CourseMember();
+        model.addAttribute("member", member);
+        model.addAttribute("user", user);
+
+        if (listCourses != null) {
+            model.addAttribute("listCourse", listCourses);
+        } else {
+            model.addAttribute("Empty", "No course found.");
+        }
+
+        long totalItem = page.getTotalElements();
+        int totalPage = page.getTotalPages();
+
+        model.addAttribute("pageNum", pageNum);
+        model.addAttribute("totalItem", totalItem);
+        model.addAttribute("totalPage", totalPage);
+        model.addAttribute("listCourses", listCourses);
+        model.addAttribute("keyword", keyword);
+
+        return "course/course";
+    }
+
+    @PostMapping("/attend")
+    public String attendCourse(@ModelAttribute("member") CourseMember member)
+            throws UnsupportedEncodingException, MessagingException {
+        memberService.attend(member);
+        return "redirect:/course";
+    }
+
+    @GetMapping("/mycourse")
+    public String showMyCourse(Model model, Authentication authentication) {
+        MyUserDetail userD = (MyUserDetail) authentication.getPrincipal();
+
+        List<CourseMember> myCourse = memberService.getMyCourse(userD.getUser().getId());
+
+        List<Course> listCourse = new ArrayList<>();
+        for (CourseMember courseMember : myCourse) {
+            listCourse.add(courseService.getCourse(courseMember.getCourseId()));
+        }
+        if (listCourse != null) {
+            model.addAttribute("listCourse", listCourse);
+        } else {
+            model.addAttribute("Empty", "No course found.");
+        }
+        
+        CourseMember member = new CourseMember();
+        
+        model.addAttribute("member", member);
+        return "course/my_course";
+    }
+
+    @GetMapping("/join")
+    public String joinCourse(@ModelAttribute("member") CourseMember member, Model model, Authentication authentication) {
+        System.out.println(member.getCourseId());
+        return "course/course-resource";
+    }
 }

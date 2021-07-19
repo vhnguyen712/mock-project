@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.lms.admin.sercurity.MyManagerDetail;
 import com.lms.commom.entity.Course;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 /**
  *
@@ -27,63 +28,73 @@ import com.lms.commom.entity.Course;
  */
 @Controller
 public class CourseController {
-    
+
     @Autowired
     CourseService courseService;
-    
+
     @GetMapping("/course")
-    public String showFirstPage(Model model){
-       
+    public String showFirstPage(Model model) {
+
         return listByPage(1, model, null);
     }
-    
-	@GetMapping("/course/page/{pageNum}")
-	public String listByPage(@PathVariable("pageNum")int pageNum, Model model,@Param("keyword") String keyword) {
-		Page<Course> page = courseService.listByPage(pageNum, keyword );
-		List<Course> listCourses = page.getContent();
 
-		long totalItem = page.getTotalElements();
-		int totalPage = page.getTotalPages();
-		
-		model.addAttribute("pageNum", pageNum);
-		model.addAttribute("totalItem", totalItem);
-		model.addAttribute("totalPage", totalPage);
-		model.addAttribute("listCourses", listCourses);
-		model.addAttribute("keyword", keyword);
-		
-		return "course/course";
-	}
-    
+    @GetMapping("/course/page/{pageNum}")
+    public String listByPage(@PathVariable("pageNum") int pageNum, Model model, @Param("keyword") String keyword) {
+        Page<Course> page = courseService.listByPage(pageNum, keyword);
+        List<Course> listCourses = page.getContent();
+
+        long totalItem = page.getTotalElements();
+        int totalPage = page.getTotalPages();
+
+        model.addAttribute("pageNum", pageNum);
+        model.addAttribute("totalItem", totalItem);
+        model.addAttribute("totalPage", totalPage);
+        model.addAttribute("listCourses", listCourses);
+        model.addAttribute("keyword", keyword);
+
+        return "course/course";
+    }
+
     @GetMapping("/create_course")
     public String showCreateCourse(Model model) {
-    	
-    	model.addAttribute("course", new Course());
-    	return "course/create_course";
+
+        model.addAttribute("course", new Course());
+        return "course/create_course";
     }
-    
+
     @PostMapping("/create_course")
     public String createCourse(Course course) {
-    	
-    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    	
-    	courseService.saveCourse(course,authentication);
-    	
-    	return "redirect:/course";
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        courseService.saveCourse(course, authentication);
+
+        return "redirect:/course";
     }
-    
+
     @GetMapping("/teacher_course")
     public String getTeacherCourse(Model model) {
-    	
-    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    	
-    	MyManagerDetail managerDetail = (MyManagerDetail) authentication.getPrincipal();
 
-		int manager_id = managerDetail.getId();
-    	
-    	List<Course> listCourse = courseService.listAllCourseOfTeacher(manager_id);
-    	
-    	model.addAttribute("listCourse", listCourse);
-    	
-    	return "course/teacher_course";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        MyManagerDetail managerDetail = (MyManagerDetail) authentication.getPrincipal();
+
+        int manager_id = managerDetail.getId();
+
+        List<Course> listCourse = courseService.listAllCourseOfTeacher(manager_id);
+
+        model.addAttribute("listCourse", listCourse);
+        
+        Course course = new Course();
+        
+        model.addAttribute("course", course);
+
+        return "course/teacher_course";
+    }
+    
+    @GetMapping("/join")
+    public String joinCourse(@ModelAttribute("course") Course course, Model model) {
+        System.out.println(course.getId());
+        return "course/course-resource";
     }
 }

@@ -33,6 +33,10 @@ and open the template in the editor.
                     <div class="card-body">
                         <h5 class="card-title" th:text="${Course.name}"></h5>
                         <p class="card-text" th:text="${Course.description}"></p>
+                        <form th:action="@{/join}" method="get" th:oject="${course}" >
+                            <input type="hidden" name="id" id="id" th:value="${Course.id}"/>
+                            <input type="submit" value="Join" />
+                        </form>
                     </div>
                 </div>
             </div>
