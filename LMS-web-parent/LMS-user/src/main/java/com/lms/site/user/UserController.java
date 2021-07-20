@@ -7,22 +7,17 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.lms.commom.entity.User;
 import com.lms.site.Utility;
 import com.lms.site.sercurity.MyUserDetail;
-import java.security.Principal;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class UserController {
@@ -62,8 +57,14 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public String viewProfile(Model model, @AuthenticationPrincipal MyUserDetail user) {
-        model.addAttribute("user", user.getUser());
+    public String viewProfile(Model model, HttpServletRequest request) {
+    	
+    	String email = userService.getEmailOfAuthenticatedCustomer(request);
+		
+		User user = userService.getUserByEmail(email);
+        
+		model.addAttribute("user", user);
+		
         return "profile";
     }
 
