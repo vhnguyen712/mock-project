@@ -20,8 +20,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.lms.admin.sercurity.MyManagerDetail;
 import com.lms.commom.entity.Course;
-import org.springframework.web.bind.annotation.ModelAttribute;
-
 /**
  *
  * @author LENOVO

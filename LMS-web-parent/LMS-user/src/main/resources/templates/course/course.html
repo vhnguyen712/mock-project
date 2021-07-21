@@ -35,7 +35,7 @@ and open the template in the editor.
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title" th:text="${Course.name}"></h5>
-                    <span class="card-text" th:text="${Course.description}"></span></br>
+                    <span class="card-text" th:text="${Course.description}"></span><br>
                     Author: <span class="card-text" th:text="${Course.manager.name}"></span>
                     <th:block sec:authorize="isAuthenticated()">
                         <form th:action="@{/attend}" method="POST" th:object="${member}">

@@ -14,6 +14,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.lms.site.sercurity.oauth.MyOauth2UserService;
+import com.lms.site.sercurity.oauth.Oauth2LoginSuccessHandler;
+
 @Configuration
 @EnableWebSecurity
 public class WebSercurityConfig extends WebSecurityConfigurerAdapter{
@@ -56,6 +59,8 @@ public class WebSercurityConfig extends WebSecurityConfigurerAdapter{
 			.and()
 				.formLogin().loginPage("/login").failureHandler(failureHandler)
 				.successHandler(successHandler).usernameParameter("email").permitAll()
+			.and().oauth2Login().loginPage("/login").userInfoEndpoint().userService(myOauth2UserService)
+			.and().successHandler(oauth2LoginSuccessHandler)
 			.and()
 				.logout().permitAll();
 	}
@@ -65,4 +70,10 @@ public class WebSercurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
 	private CustomLoginSuccessHandler successHandler;
+	
+	@Autowired
+	private Oauth2LoginSuccessHandler oauth2LoginSuccessHandler;
+	
+	@Autowired
+	private MyOauth2UserService myOauth2UserService;
 }

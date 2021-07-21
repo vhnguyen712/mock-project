@@ -30,4 +30,5 @@ public class Chapter {
 	@ManyToOne
 	@JoinColumn(name = "course_id")
 	private Course course;
+
 }

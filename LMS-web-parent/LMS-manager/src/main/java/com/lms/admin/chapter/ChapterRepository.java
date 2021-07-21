@@ -1,6 +1,5 @@
 package com.lms.admin.chapter;
 
-import org.springframework.data.repository.CrudRepository;
 
 import com.lms.commom.entity.Chapter;
 import java.util.List;
