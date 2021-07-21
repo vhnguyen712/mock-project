@@ -3,6 +3,7 @@ package com.lms.admin.chapter;
 import com.lms.admin.course.CourseService;
 import com.lms.commom.entity.Course;
 import com.lms.commom.entity.Chapter;
+import com.lms.commom.entity.Resources;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +43,12 @@ public class ChapterService {
         return found;
     }
 
-    List<Chapter> getChapterByCourseId(int id) {
+    public List<Chapter> getChapterByCourseId(int id) {
         return repository.findByCourse_Id(id);
+    }
+    
+    public Chapter findChapterById(int id) {
+        return chapterRepository.findById(id).get();
     }
 
 }

@@ -32,11 +32,14 @@ public class ChapterController {
     }
     
     @PostMapping("/add_chapter")
-    public String createChapter(Chapter chapter, HttpServletRequest request ){
+    public String createChapter(Chapter chapter, HttpServletRequest request, Model model ){
         int id = Integer.parseInt(request.getParameter("courseId"));
         Course course = courseService.findCourseById(id);
         chapterService.saveChapter(chapter, course);
-        return "redirect:/teacher_course";
+        List<Chapter> chapterByCourseId = chapterService.getChapterByCourseId(id);
+
+        model.addAttribute("chapter", chapterByCourseId);
+        return "course/course_resource";
     }
     
     @GetMapping("/join")
