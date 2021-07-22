@@ -5,6 +5,7 @@
  */
 package com.lms.admin.exam;
 
+import java.util.Date;
 import java.util.List;
 import com.lms.admin.exam.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,13 +64,20 @@ public class ExamController {
     }
 
     @PostMapping("/create_exam")
-    public String createExam(Exam exam, @RequestParam("available")String available, @RequestParam("due")String due) throws ParseException {
-        
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        
-        System.out.println(simpleDateFormat.parse(due) + " " );
-        
-        return "aa";
+    public String createExam(@RequestParam("due")String due,@RequestParam("available")String available) throws ParseException {
+
+    	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    	
+    	Exam exam = new Exam();
+    	
+    	
+    	Date myDate = simpleDateFormat.parse(available);
+    	System.out.println(available);
+    	//exam.setAvailable(simpleDateFormat.parse(available));
+    	
+    	System.out.println(myDate);
+    	
+    	return "";
     }
 
 }

@@ -53,7 +53,7 @@ public class CourseController {
 	public String listByPage(@PathVariable("pageNum") int pageNum, Model model, @Param("keyword") String keyword,
 			HttpServletRequest request) {
 
-		String email = userService.getEmailOfAuthenticatedCustomer(request);
+		String email = userService.getEmailOfAuthenticatedUser(request);
 
 		User user = userService.getUserByEmail(email);
 
@@ -92,7 +92,7 @@ public class CourseController {
 	@SuppressWarnings("unused")
 	@GetMapping("/mycourse")
 	public String showMyCourse(Model model, HttpServletRequest request) {
-		String email = userService.getEmailOfAuthenticatedCustomer(request);
+		String email = userService.getEmailOfAuthenticatedUser(request);
 
 		User user = userService.getUserByEmail(email);
 

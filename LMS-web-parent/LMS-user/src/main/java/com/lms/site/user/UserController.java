@@ -59,14 +59,16 @@ public class UserController {
     @GetMapping("/profile")
     public String viewProfile(Model model, HttpServletRequest request) {
     	
-    	String email = userService.getEmailOfAuthenticatedCustomer(request);
-		
-		User user = userService.getUserByEmail(email);
-        
-		model.addAttribute("user", user);
-		
+    	String email = userService.getEmailOfAuthenticatedUser(request);
+    	
+    	User user = userService.getUserByEmail(email);
+    	
+    	model.addAttribute("user", user);
+    	
         return "profile";
     }
+    
+
 
     @PostMapping("/edit_profile")
     public String editProfile(@ModelAttribute("user") User user, @AuthenticationPrincipal MyUserDetail userdl, Model model) {

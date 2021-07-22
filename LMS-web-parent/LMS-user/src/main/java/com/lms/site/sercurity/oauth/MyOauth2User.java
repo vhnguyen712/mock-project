@@ -10,10 +10,10 @@ public class MyOauth2User implements OAuth2User {
 
 	private String clientName;
 	private OAuth2User oAuth2User;
-
-	public MyOauth2User(String clientName, OAuth2User oAuth2User) {
-		this.clientName = clientName;
+	
+	public MyOauth2User(OAuth2User oAuth2User, String clientName) {
 		this.oAuth2User = oAuth2User;
+		this.clientName = clientName;
 	}
 
 	@Override
@@ -28,6 +28,10 @@ public class MyOauth2User implements OAuth2User {
 
 	@Override
 	public String getName() {
+		return oAuth2User.getAttribute("name");
+	}
+
+	public String getUserName() {
 		return oAuth2User.getAttribute("name");
 	}
 	

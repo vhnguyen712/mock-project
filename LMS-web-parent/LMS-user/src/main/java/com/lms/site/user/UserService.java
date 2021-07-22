@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.lms.commom.entity.AuthenticationType;
 import com.lms.commom.entity.User;
+import com.lms.site.sercurity.MyUserDetail;
 import com.lms.site.sercurity.oauth.MyOauth2User;
 
 import net.bytebuddy.utility.RandomString;
@@ -162,23 +163,20 @@ public class UserService {
 			}
 		}
 
-		public String getEmailOfAuthenticatedCustomer(HttpServletRequest request) {
+		public String getEmailOfAuthenticatedUser(HttpServletRequest request) {
 			Object principal = request.getUserPrincipal();
-
-			if (principal == null) return null;
-			
 			String email = null;
-
-			if (principal instanceof UsernamePasswordAuthenticationToken
-					|| principal instanceof RememberMeAuthenticationToken) {
-				email = request.getUserPrincipal().getName();
-			} else if (principal instanceof OAuth2AuthenticationToken) {
-				
-				OAuth2AuthenticationToken oAuth2AuthenticationToken = (OAuth2AuthenticationToken) principal;
-				MyOauth2User oauth2User = (MyOauth2User) oAuth2AuthenticationToken.getPrincipal();
+			
+			if (principal instanceof UsernamePasswordAuthenticationToken || principal instanceof RememberMeAuthenticationToken) {
+				UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) principal;
+				MyUserDetail userDetail = (MyUserDetail) token.getPrincipal();
+				email = userDetail.getEmail();
+			}else if (principal instanceof OAuth2AuthenticationToken) {
+				OAuth2AuthenticationToken token = (OAuth2AuthenticationToken) principal;
+				MyOauth2User oauth2User = (MyOauth2User) token.getPrincipal();
 				email = oauth2User.getEmail();
 			}
-
+			
 			return email;
 		
 		}
