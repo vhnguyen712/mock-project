@@ -24,40 +24,40 @@ and open the template in the editor.
             </div>
             <div>&nbsp;</div>
 
-            <form th:action="@{/create_exam}" method="post" th:object="${exam}" style="max-width: 600px; margin: 0 auto">
+            <form th:action="@{/create_exam}" method="post"  style="max-width: 600px; margin: 0 auto">
 
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label">Title Exam: </label>
                     <div class="col-sm-8">
-                        <input type="text" th:field="*{name}" class="form-control" required="required">
+                        <input type="text"  class="form-control" required="required">
                     </div>
                 </div>	
                 &nbsp;
                <div class="form-group row">
                     <label class="col-sm-4 col-form-label">Duration of Exam: </label>
                     <div class="col-sm-8">
-                        <input type="text" th:field="*{duration}" class="form-control" required="required">
+                        <input type="text"  class="form-control" required="required">
                     </div>
                 </div>	
                 &nbsp;
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label">Available : </label>
                     <div class="col-sm-8">
-                        <input type="datetime-local" th:field="*{available}" class="form-control" required="required" value="0000-00-00T00:00">
+                        <input type="date" name="available" class="form-control" required="required">
                     </div>
                 </div>	
                 &nbsp;
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label">Due: </label>
                     <div class="col-sm-8">
-                        <input type="datetime-local" th:field="*{due}" class="form-control" required="required" value="0000-00-00T00:00">
+                        <input type="date" name="due" class="form-control" required="required">
                     </div>
                 </div>	
                 &nbsp;
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label">Course ID: </label>
                     <div class="col-sm-8">
-                        <input type="text" th:field="*{course}" class="form-control" required="required">
+                        <input type="text"  class="form-control" required="required">
                     </div>
                 </div>	
 <!--                &nbsp;

@@ -15,7 +15,7 @@ public class MyOauth2UserService extends DefaultOAuth2UserService{
 		String clientName = userRequest.getClientRegistration().getClientName();
 		OAuth2User user = super.loadUser(userRequest);
 		
-		return new MyOauth2User(clientName,user);
+		return new MyOauth2User(user,clientName);
 	}
 
 

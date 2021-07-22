@@ -3,6 +3,7 @@ package com.lms.site.user;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.lms.commom.entity.AuthenticationType;
@@ -12,6 +13,9 @@ import com.lms.commom.entity.User;
 public interface UserRepository extends CrudRepository<User, Integer> {
 
 	User getUserByEmail(String email);
+	
+	@Query("Select u From User u Where u.email = :email")
+	public User findByEmail(@Param("email") String email);
 
 	@Query("Select u From User u Where u.verificationCode = ?1")
 	User findByVerificationCode(String code);

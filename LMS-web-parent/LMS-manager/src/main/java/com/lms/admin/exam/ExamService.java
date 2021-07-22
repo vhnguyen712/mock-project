@@ -50,7 +50,6 @@ public class ExamService {
 
     public void saveExam(Exam exam) {
         //   exam.setAvailable(new Date());
-        exam.setCreateDate(new Date());
         //   exam.setCourse();
         examRepository.save(exam);
     }
