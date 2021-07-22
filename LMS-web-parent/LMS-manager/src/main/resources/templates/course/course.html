@@ -21,6 +21,9 @@ and open the template in the editor.
                 <h1>All Available Course</h1>
             </div>
             <div><a th:href="@{/create_course}">Create New Course</a></div>
+            &nbsp;
+            <div><a th:href="@{/create_exam}">Create New Exam</a></div>
+            &nbsp;
             <div th:if= "${Empty != null}" class="alert alert-danger" role="alert" th:text="${Empty}">
             </div>
             <form class='searchbox' style="width: 30rem;">
@@ -37,19 +40,19 @@ and open the template in the editor.
                     </div>
                 </div>
             </div>
- <div class="text-center">
-			Total Course : [[${totalItem}]] - Page [[${pageNum}]] of
-			[[${totalPage}]] &nbsp;  
-			<span
-				th:each="i: ${#numbers.sequence(1, totalPage)}"> <a
-				th:if="${i != pageNum}" th:href="@{'/course/page/' +${i}}">
-					[[${i}]] </a> <span th:unless="${i != pageNum}">[[${i}]] </span>
-				&nbsp;&nbsp;
-			</span>
-</div> 
+            <div class="text-center">
+                Total Course : [[${totalItem}]] - Page [[${pageNum}]] of
+                [[${totalPage}]] &nbsp;  
+                <span
+                    th:each="i: ${#numbers.sequence(1, totalPage)}"> <a
+                        th:if="${i != pageNum}" th:href="@{'/course/page/' +${i}}">
+                        [[${i}]] </a> <span th:unless="${i != pageNum}">[[${i}]] </span>
+                    &nbsp;&nbsp;
+                </span>
+            </div> 
         </div>
-<div th:replace ="nav_bar :: footer_menu">
-</div>
+        <div th:replace ="nav_bar :: footer_menu">
+        </div>
 
         <script>
             const searchEl = document.querySelector('.searchbox');
