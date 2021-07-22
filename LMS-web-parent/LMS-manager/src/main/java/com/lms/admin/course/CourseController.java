@@ -83,10 +83,6 @@ public class CourseController {
 
         model.addAttribute("listCourse", listCourse);
         
-        Course course = new Course();
-        
-        model.addAttribute("course", course);
-
         return "course/teacher_course";
     }
 }

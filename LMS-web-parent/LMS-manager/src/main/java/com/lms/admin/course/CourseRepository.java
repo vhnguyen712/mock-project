@@ -27,4 +27,6 @@ public interface CourseRepository extends PagingAndSortingRepository<Course, Int
 	
 	@Query("Select c From Course c Where c.name LIKE %?1%")
 	public Page<Course> findAll(String keyword, Pageable pageable);
+
+	Course findByName(String name);
 }

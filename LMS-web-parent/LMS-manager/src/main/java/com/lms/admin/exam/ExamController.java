@@ -7,21 +7,27 @@ package com.lms.admin.exam;
 
 import java.util.Date;
 import java.util.List;
-import com.lms.admin.exam.*;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import com.lms.commom.entity.Exam;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.lms.admin.course.CourseService;
+import com.lms.admin.manager.ManagerService;
+import com.lms.admin.sercurity.MyManagerDetail;
+import com.lms.commom.entity.Course;
+import com.lms.commom.entity.Exam;
+import com.lms.commom.entity.Manager;
 
 /**
  *
@@ -33,6 +39,11 @@ public class ExamController {
     @Autowired
     ExamService examService;
 
+    @Autowired
+    CourseService courseService;
+    
+    @Autowired
+    ManagerService managerService;
     @GetMapping("/exam")
     public String showFirstPage(Model model) {
 
@@ -58,26 +69,45 @@ public class ExamController {
 
     @GetMapping("/create_exam")
     public String showCreateExam(Model model) {
+    	
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
+        MyManagerDetail managerDetail = (MyManagerDetail) authentication.getPrincipal();
+
+        int manager_id = managerDetail.getId();
+
+    	List<Course> listCoursesOfTeacher = courseService.listAllCourseOfTeacher(manager_id);
+    	
+    	model.addAttribute("listCoursesOfTeacher", listCoursesOfTeacher);
         model.addAttribute("exam", new Exam());
+        
         return "exam/create_exam";
     }
 
     @PostMapping("/create_exam")
-    public String createExam(@RequestParam("due")String due,@RequestParam("available")String available) throws ParseException {
+    public String createExam(Exam exam,@RequestParam("due")String due,@RequestParam("available")String available,HttpServletRequest request) {
 
-    	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        MyManagerDetail managerDetail = (MyManagerDetail) authentication.getPrincipal();
+
+        int manager_id = managerDetail.getId();
+        
+        Manager manager = managerService.getManagerById(manager_id);
+        
+    	String name = request.getParameter("idCourse");
     	
-    	Exam exam = new Exam();
+    	Course course = courseService.findCourseByName(name);
     	
+    	exam.setManager(manager);
+    	exam.setCourse(course);
+    	exam.setDue(due);
+    	exam.setAvailable(available);
+    	exam.setCreateDate(new Date());
     	
-    	Date myDate = simpleDateFormat.parse(available);
-    	System.out.println(available);
-    	//exam.setAvailable(simpleDateFormat.parse(available));
+    	examService.saveExam(exam);
     	
-    	System.out.println(myDate);
-    	
-    	return "";
+    	return "redirect:/";
     }
 
 }

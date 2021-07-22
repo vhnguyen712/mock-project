@@ -30,9 +30,9 @@ public class Exam {
 	
 	private int duration;
 	
-	private Date available;
+	private String available;
 	
-	private Date due;
+	private String due;
 	
 	@Column(name = "create_date")
 	private Date createDate;
@@ -40,4 +40,9 @@ public class Exam {
 	@ManyToOne
 	@JoinColumn(name = "course_id")
 	private Course course;
+	
+	@ManyToOne
+	@JoinColumn(name = "teacher_id")
+	private Manager manager;
+
 }
