@@ -71,4 +71,8 @@ public class CourseService {
 	public Course findCourseByName(String name) {
 		return courseRepository.findByName(name);
 	}
+
+	public void delete(Integer id) {
+		courseRepository.deleteById(id);
+	}
 }

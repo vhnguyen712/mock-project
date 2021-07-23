@@ -58,7 +58,7 @@ and open the template in the editor.
                 <label class="col-sm-4 col-form-label">Course: </label>
                     <div class="col-sm-8" >
 					 <select name="idCourse">
-					  	<option th:each="item: ${listCoursesOfTeacher}" th:text="${item.name}" >
+					  	<option th:each="item: ${listCoursesOfTeacher}"  th:name="${item.id}">[[${item.name}]]
 					  	</option>
 					</select>
 					 </div>

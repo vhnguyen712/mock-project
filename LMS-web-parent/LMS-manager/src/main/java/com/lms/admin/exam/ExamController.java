@@ -85,7 +85,8 @@ public class ExamController {
     }
 
     @PostMapping("/create_exam")
-    public String createExam(Exam exam,@RequestParam("due")String due,@RequestParam("available")String available,HttpServletRequest request) {
+    public String createExam(Exam exam,@RequestParam("due")String due,@RequestParam("available")String available,
+    		HttpServletRequest request) {
 
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -96,7 +97,7 @@ public class ExamController {
         Manager manager = managerService.getManagerById(manager_id);
         
     	String name = request.getParameter("idCourse");
-    	
+
     	Course course = courseService.findCourseByName(name);
     	
     	exam.setManager(manager);
