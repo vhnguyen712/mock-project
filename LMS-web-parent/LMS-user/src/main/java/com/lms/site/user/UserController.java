@@ -60,10 +60,11 @@ public class UserController {
     public String viewProfile(Model model, HttpServletRequest request) {
     	
     	String email = userService.getEmailOfAuthenticatedUser(request);
-    	
+    	boolean check = userService.checkAuthenticationType(request);
     	User user = userService.getUserByEmail(email);
     	
     	model.addAttribute("user", user);
+        model.addAttribute("check", check);
     	
         return "profile";
     }

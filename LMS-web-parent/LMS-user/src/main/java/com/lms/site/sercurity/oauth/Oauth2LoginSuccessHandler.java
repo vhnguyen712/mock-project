@@ -1,5 +1,6 @@
 package com.lms.site.sercurity.oauth;
 
+import com.lms.site.user.UserService;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Component;
 
 import com.lms.commom.entity.AuthenticationType;
 import com.lms.commom.entity.User;
-import com.lms.site.user.UserService;
 
 @Component
 public class Oauth2LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
