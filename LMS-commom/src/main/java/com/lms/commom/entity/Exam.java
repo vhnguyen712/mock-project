@@ -1,7 +1,7 @@
 package com.lms.commom.entity;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 
@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "exam")
@@ -41,15 +42,20 @@ public class Exam {
 	
 	@Column(name = "create_date")
 	private Date createDate;
-	
-	@ManyToOne
+        
+        
+	@ToString.Exclude
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "course_id")
 	private Course course;
 	
+        
+        @ToString.Exclude
 	@ManyToOne
 	@JoinColumn(name = "teacher_id")
 	private Manager manager;
         
+        @ToString.Exclude
         @OneToMany(fetch = FetchType.LAZY,mappedBy = "exam", cascade = CascadeType.ALL)
         private List<Question> question = new ArrayList<>();
 
