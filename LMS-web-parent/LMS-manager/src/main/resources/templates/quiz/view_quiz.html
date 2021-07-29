@@ -62,7 +62,7 @@
                 [[${totalPage}]] &nbsp;  
                 <span
                     th:each="i: ${#numbers.sequence(1, totalPage)}"> <a
-                        th:if="${i != pageNum}" th:href="@{'/course/page/' +${i}}">
+                        th:if="${i != pageNum}" th:href="@{'/view_quiz/page/' +${i}}">
                         [[${i}]] </a> <span th:unless="${i != pageNum}">[[${i}]] </span>
                     &nbsp;&nbsp;
                 </span>

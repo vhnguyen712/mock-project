@@ -236,7 +236,7 @@ public class QuestionController {
                 // thông báo thành công
                 if (submit.equals("Create Quiz")) {
                     redirectAttributes.addFlashAttribute("message", "Create Success");
-                    return "redirect:/create_question";
+                    return "redirect:/view_quiz";
                 }
                 if (submit.equals("Save")) {
                     redirectAttributes.addFlashAttribute("message", "Update Success");
@@ -254,7 +254,7 @@ public class QuestionController {
                 model.addAttribute("exams", listExam);
 
                 // thông báo
-                redirectAttributes.addFlashAttribute("message", "Create Error");
+                redirectAttributes.addFlashAttribute("message", "Fail !!!");
                 return "redirect:/create_question";
             }
 
@@ -317,20 +317,6 @@ public class QuestionController {
             e.printStackTrace();
             return "quiz/view_answer";
         }
-    }
-
-    // edit
-    @PostMapping("/edit_question")
-    public String editQuestion(Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) {
-        try {
-
-            return "redirect:/view_quiz";
-        } catch (Exception e) {
-            System.out.println("error");
-            e.printStackTrace();
-            return "redirect:/view_quiz";
-        }
-
     }
 
 }
