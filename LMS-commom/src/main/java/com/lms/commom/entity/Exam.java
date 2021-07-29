@@ -30,27 +30,27 @@ public class Exam {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String name;
-	
+
 	private int duration;
-	
+
 	private String available;
-	
+
 	private String due;
-	
+
 	@Column(name = "create_date")
 	private Date createDate;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "course_id")
 	private Course course;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "teacher_id")
 	private Manager manager;
-        
-        @OneToMany(fetch = FetchType.LAZY,mappedBy = "exam", cascade = CascadeType.ALL)
-        private List<Question> question = new ArrayList<>();
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "exam", cascade = CascadeType.ALL)
+	private List<Question> question = new ArrayList<>();
 
 }
