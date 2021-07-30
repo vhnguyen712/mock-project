@@ -16,4 +16,5 @@ public interface UserRepository extends PagingAndSortingRepository<User, Integer
 	
 	@Query("Select u From User u Where u.email LIKE %?1% or u.name LIKE %?1%")
 	public Page<User> findAll(String keyword, Pageable pageable);
+        
 }
