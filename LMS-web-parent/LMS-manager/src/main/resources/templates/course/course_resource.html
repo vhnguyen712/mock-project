@@ -49,7 +49,7 @@ and open the template in the editor.
                             <span class="card-text" th:text="${Resource.url}"></span>
                         </a>
                     </div>
-                    <input type="button" class="btn btn-primary" id="addresourcebtn" value="Add Resources" th:onclick="|showForm('${Chapter.id}')|">
+                    <input type="button" class="btn btn-primary" id="addresourcebtn" value="Add Resources" th:onclick="|showForm('${Chapter.key.id}')|">
                     <form th:action="@{/upload_file}" method="post" enctype="multipart/form-data" class="form row">
                         <div class="border border-secondary rounded p-3" id="addresourceform" style="display : none">
                             <div class="form-group row">
@@ -61,7 +61,7 @@ and open the template in the editor.
                             </div>
                             <div class="text-center">
                                 <input type="submit" id="uploadbtn" value="upload" class="btn btn-success">
-                                <input type="button" class="btn btn-light" th:id="closeformbtn" value="Close" th:onclick="|closeForm('${Chapter.id}')|">
+                                <input type="button" class="btn btn-light" th:id="closeformbtn" value="Close" th:onclick="|closeForm('${Chapter.key.id}')|">
                             </div>
                         </div>
                     </form>
