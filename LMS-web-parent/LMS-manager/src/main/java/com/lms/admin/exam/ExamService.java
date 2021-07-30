@@ -28,22 +28,25 @@ public class ExamService {
     private static final int EXAM_PER_PAGE = 4;
     @Autowired
     ExamRepository examRepository;
-    
+
     @Autowired
     CourseRepository courseRepository;
 
-    public List<Exam> findAll() {
+    public List<Exam> findAllExam() {
         return (List<Exam>) examRepository.findAll();
     }
 
-    public Page<Exam> listByPage(int pageNum, String keyword) {
+    @Autowired
+    ExamRepository repository;
+
+    public Page<Exam> listByPage(int id, int pageNum, String keyword) {
         Pageable pageable = PageRequest.of(pageNum - 1, EXAM_PER_PAGE);
 
         if (keyword != null) {
-            return examRepository.findAll(keyword, pageable);
+            return examRepository.findByCourse_Id(id, pageable,keyword);
         }
 
-        return examRepository.findAll(pageable);
+        return examRepository.findByCourse_Id(id, pageable);
     }
 
     public Exam getExam(int id) {
@@ -57,6 +60,13 @@ public class ExamService {
     public Exam findExamById(int id) {
         return examRepository.findById(id).get();
     }
-    
 
+    public List<Exam> listAllExamOfTeacher(int course_id) {
+        List<Exam> listExam = examRepository.listExamsOfTeacher(course_id);
+        return listExam;
+    }
+
+//    public List<Exam> getExamByCourseId(int course_id) {
+//        return repository.findByCourse_Id(course_id);
+//    }
 }

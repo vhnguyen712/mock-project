@@ -28,6 +28,7 @@ import com.lms.admin.sercurity.MyManagerDetail;
 import com.lms.commom.entity.Course;
 import com.lms.commom.entity.Exam;
 import com.lms.commom.entity.Manager;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 /**
  *
@@ -41,19 +42,21 @@ public class ExamController {
 
     @Autowired
     CourseService courseService;
-    
+
     @Autowired
     ManagerService managerService;
-    @GetMapping("/exam")
-    public String showFirstPage(Model model) {
 
-        return listByPage(1, model, null);
+    @GetMapping("/view_exam/{course_id}")
+    public String showFirstPage(Model model,@PathVariable("course_id")int id) {
+      
+        return listByPage(1, model, null,id);
     }
 
-    @GetMapping("/exam/page/{pageNum}")
-    public String listByPage(@PathVariable("pageNum") int pageNum, Model model, @Param("keyword") String keyword) {
-        Page<Exam> page = examService.listByPage(pageNum, keyword);
+    @GetMapping("/view_exam/{course_id}/page/{pageNum}")
+    public String listByPage(@PathVariable("pageNum") int pageNum, Model model, @Param("keyword") String keyword, int id) {
+        Page<Exam> page = examService.listByPage(id,pageNum, keyword);
         List<Exam> listExams = page.getContent();
+       
 
         long totalItem = page.getTotalElements();
         int totalPage = page.getTotalPages();
@@ -64,51 +67,59 @@ public class ExamController {
         model.addAttribute("listExams", listExams);
         model.addAttribute("keyword", keyword);
 
-        return "exam/exam";
+        return "exam/view_exam";
     }
 
     @GetMapping("/create_exam")
     public String showCreateExam(Model model) {
-    	
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         MyManagerDetail managerDetail = (MyManagerDetail) authentication.getPrincipal();
 
         int manager_id = managerDetail.getId();
 
-    	List<Course> listCoursesOfTeacher = courseService.listAllCourseOfTeacher(manager_id);
-    	
-    	model.addAttribute("listCoursesOfTeacher", listCoursesOfTeacher);
+        List<Course> listCoursesOfTeacher = courseService.listAllCourseOfTeacher(manager_id);
+
+        model.addAttribute("listCoursesOfTeacher", listCoursesOfTeacher);
         model.addAttribute("exam", new Exam());
-        
+
         return "exam/create_exam";
     }
 
     @PostMapping("/create_exam")
-    public String createExam(Exam exam,@RequestParam("due")String due,@RequestParam("available")String available,
-    		HttpServletRequest request) {
+    public String createExam(Exam exam, @RequestParam("due") String due, @RequestParam("available") String available,
+            HttpServletRequest request) {
 
-    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         MyManagerDetail managerDetail = (MyManagerDetail) authentication.getPrincipal();
 
         int manager_id = managerDetail.getId();
-        
-        Manager manager = managerService.getManagerById(manager_id);
-        
-    	String name = request.getParameter("idCourse");
 
-    	Course course = courseService.findCourseByName(name);
-    	
-    	exam.setManager(manager);
-    	exam.setCourse(course);
-    	exam.setDue(due);
-    	exam.setAvailable(available);
-    	exam.setCreateDate(new Date());
-    	
-    	examService.saveExam(exam);
-    	
-    	return "redirect:/";
+        Manager manager = managerService.getManagerById(manager_id);
+
+        String name = request.getParameter("idCourse");
+
+        Course course = courseService.findCourseByName(name);
+
+        exam.setManager(manager);
+        exam.setCourse(course);
+        exam.setDue(due);
+        exam.setAvailable(available);
+        exam.setCreateDate(new Date());
+
+        examService.saveExam(exam);
+
+        return "redirect:/";
     }
 
+//    @GetMapping("/join1")
+//
+//    public String showExam(@ModelAttribute("course") Course course, Model model) {
+//        List<Exam> ExamByCourse = examService.getExamByCourseId(course.getId());
+//
+//        model.addAttribute("exam", ExamByCourse);
+//        return "exam/view_exam";
+//    }
 }

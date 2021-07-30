@@ -46,7 +46,7 @@ public class ChapterController {
     public String showChapter(@ModelAttribute("course") Course course, Model model) {
 
         List<Chapter> chapterByCourseId = chapterService.getChapterByCourseId(course.getId());
-
+        model.addAttribute("course_id", course.getId());
         model.addAttribute("chapter", chapterByCourseId);
         return "course/course_resource";
     }

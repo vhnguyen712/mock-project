@@ -33,13 +33,19 @@ and open the template in the editor.
         <div class="text-center">
             <h1>Welcome to course</h1>
         </div>
+
+        <div><a th:href="@{'/view_exam/' + ${course_id}}">List Exam</a></div>
+
+        <div th:if= "${Empty != null}" class="alert alert-danger" role="alert" th:text="${Empty}">
+        </div>
+
         <div th:each="Chapter: ${chapter}" style="margin-bottom: 20px">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title" th:text="${Chapter.name}"></h5>
                     <span class="card-text" th:text="${Chapter.description}"></span><br/>
-<!--                    <a href="mapmu.jpg" download>link</a>
-                    <img src="../../upload/mapmu.jpg" alt=""/>-->
+                    <!--                    <a href="mapmu.jpg" download>link</a>
+                                        <img src="../../upload/mapmu.jpg" alt=""/>-->
                     <input type="button" class="btn btn-primary" id="addresourcebtn" value="Add Resources">
                     <form th:action="@{/upload_file}" method="post" enctype="multipart/form-data" class="form row">
                         <div class="border border-secondary rounded p-3" id="addresourceform" style="display : none">
