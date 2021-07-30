@@ -18,6 +18,9 @@
 						<li class="nav-item">
 							<a class="nav-link" th:href="@{/course}">All Courses</a>
 						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/view_quiz}">Quiz</a>
+						</li>
 						<li class="nav-item" sec:authorize="hasAuthority('Teacher')">
 							<a class="nav-link" th:href="@{/teacher_course}">Your Courses</a>
 						</li>
