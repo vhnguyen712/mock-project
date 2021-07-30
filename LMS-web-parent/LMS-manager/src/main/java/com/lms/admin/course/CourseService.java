@@ -34,14 +34,14 @@ public class CourseService {
 	public List<Course> findAllCourse() {
 		return (List<Course>) courseRepository.findAll();
 	}
-	
-	public Page<Course> listByPage(int pageNum, String keyword) { 
+
+	public Page<Course> listByPage(int pageNum, String keyword) {
 		Pageable pageable = PageRequest.of(pageNum - 1, COURSE_PER_PAGE);
-		
+
 		if (keyword != null) {
 			return courseRepository.findAll(keyword, pageable);
 		}
-		
+
 		return courseRepository.findAll(pageable);
 	}
 
@@ -58,13 +58,21 @@ public class CourseService {
 	}
 
 	public List<Course> listAllCourseOfTeacher(int manager_id) {
-		
+
 		List<Course> listCourse = courseRepository.listCoursesOfTeacher(manager_id);
 
 		return listCourse;
 	}
-        
-        public Course findCourseById(int id){
-            return courseRepository.findById(id).get();
-        }
+
+	public Course findCourseById(int id) {
+		return courseRepository.findById(id).get();
+	}
+	
+	public Course findCourseByName(String name) {
+		return courseRepository.findByName(name);
+	}
+
+	public void delete(Integer id) {
+		courseRepository.deleteById(id);
+	}
 }

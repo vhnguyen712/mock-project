@@ -14,11 +14,12 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class FileService {
 
+    public String uploadDir;
+
     public void uploadFile(MultipartFile file) throws Exception {
 
         try {
-            String uploadDir;
-            uploadDir = System.getProperty("user.dir");
+            uploadDir = System.getProperty("user.dir") + "\\src\\main\\resources\\upload";
             System.out.println(uploadDir);
             Path copyLocation = Paths
                     .get(uploadDir + File.separator + StringUtils.cleanPath(file.getOriginalFilename()));

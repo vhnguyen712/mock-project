@@ -12,11 +12,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lms.admin.sercurity.MyManagerDetail;
 import com.lms.commom.entity.Course;
@@ -56,18 +58,20 @@ public class CourseController {
     @GetMapping("/create_course")
     public String showCreateCourse(Model model) {
 
+    	model.addAttribute("pageTitle", "Create Course");
         model.addAttribute("course", new Course());
         return "course/create_course";
     }
 
     @PostMapping("/create_course")
-    public String createCourse(Course course) {
+    public String createCourse(Course course,RedirectAttributes redirectAttributes) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         courseService.saveCourse(course, authentication);
+        redirectAttributes.addFlashAttribute("message", "Course have been saved");
 
-        return "redirect:/course";
+        return "redirect:/teacher_course";
     }
 
     @GetMapping("/teacher_course")
@@ -83,10 +87,31 @@ public class CourseController {
 
         model.addAttribute("listCourse", listCourse);
         
-        Course course = new Course();
-        
-        model.addAttribute("course", course);
-
         return "course/teacher_course";
     }
+    
+    @GetMapping("/course/edit/{id}")
+    public String editCourse(@PathVariable("id")int id, RedirectAttributes redirectAttributes, Model model) {
+    	
+    	Course course = courseService.getCourse(id);
+ 
+    	model.addAttribute("course", course);
+    	model.addAttribute("pageTitle", "Edit Course");
+    	
+    	
+    	return "course/create_course";
+    }
+    
+	@GetMapping("/course/delete/{id}")
+	public String deleteCourse(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes, Model model) {
+
+		try {
+			courseService.delete(id);
+			redirectAttributes.addFlashAttribute("message", "Course have been deleted");
+
+		} catch (UsernameNotFoundException e) {
+			redirectAttributes.addFlashAttribute("message", e.getMessage());
+		}
+		return "redirect:/teacher_course";
+	}
 }

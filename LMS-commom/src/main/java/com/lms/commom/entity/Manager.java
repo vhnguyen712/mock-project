@@ -1,7 +1,9 @@
 package com.lms.commom.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -63,5 +65,13 @@ public class Manager {
         @OneToMany
         @JoinColumn (name = "manager_id")
 	private Set<Course> courses;
+        
+        
+        // quang
+//        @OneToMany
+//        @JoinColumn (name = "manager_id")
+//	private List<Course> courses = new ArrayList<Course>();
+//        
+//	private List<Role> roles = new ArrayList<>();
 	
 }

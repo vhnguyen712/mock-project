@@ -40,4 +40,8 @@ public class ManagerService {
 	public void delete(int id) {
 		managerRepository.deleteById(id);
 	}
+	
+	public Manager getManagerById(int id) {
+		return managerRepository.findById(id).get();
+	}
 }

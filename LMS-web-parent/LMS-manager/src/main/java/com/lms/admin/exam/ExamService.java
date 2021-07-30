@@ -5,7 +5,6 @@
  */
 package com.lms.admin.exam;
 
-import com.lms.admin.exam.*;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +13,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.lms.commom.entity.Course;
+
+import com.lms.admin.course.CourseRepository;
 import com.lms.commom.entity.Exam;
-import java.util.Date;
 
 /**
  *
@@ -29,6 +28,9 @@ public class ExamService {
     private static final int EXAM_PER_PAGE = 4;
     @Autowired
     ExamRepository examRepository;
+    
+    @Autowired
+    CourseRepository courseRepository;
 
     public List<Exam> findAll() {
         return (List<Exam>) examRepository.findAll();
@@ -49,12 +51,12 @@ public class ExamService {
     }
 
     public void saveExam(Exam exam) {
-        //   exam.setAvailable(new Date());
-        //   exam.setCourse();
         examRepository.save(exam);
     }
 
     public Exam findExamById(int id) {
         return examRepository.findById(id).get();
     }
+    
+
 }
