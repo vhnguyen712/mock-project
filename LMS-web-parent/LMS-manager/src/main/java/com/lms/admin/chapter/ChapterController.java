@@ -54,9 +54,6 @@ public class ChapterController {
     public String showChapter(@ModelAttribute("course") Course course, Model model) {
         List<Chapter> chapterByCourseId = chapterService.getChapterByCourseId(course.getId());
 
-        model.addAttribute("course_id", course.getId());
-
-        model.addAttribute("chapter", chapterByCourseId);
         LinkedHashMap<Chapter, List<Resources>> map = new LinkedHashMap<>();
 
         for (Chapter chapter : chapterByCourseId) {
@@ -65,11 +62,6 @@ public class ChapterController {
 
             map.put(chapter, resourceByChapterId);
 
-        }
-
-        Set<Chapter> keySet = map.keySet();
-        for (Chapter key : keySet) {
-            System.out.println(key.getName());
         }
         model.addAttribute("chapter", map);
         //
