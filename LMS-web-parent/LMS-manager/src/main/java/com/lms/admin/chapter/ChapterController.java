@@ -53,6 +53,7 @@ public class ChapterController {
     @GetMapping("/join")
     public String showChapter(@ModelAttribute("course") Course course, Model model) {
         List<Chapter> chapterByCourseId = chapterService.getChapterByCourseId(course.getId());
+
         LinkedHashMap<Chapter, List<Resources>> map = new LinkedHashMap<>();
 
         for (Chapter chapter : chapterByCourseId) {
@@ -62,13 +63,7 @@ public class ChapterController {
             map.put(chapter, resourceByChapterId);
 
         }
-
-        Set<Chapter> keySet = map.keySet();
-        for (Chapter key : keySet) {
-            System.out.println(key.getName());
-        }
         model.addAttribute("chapter", map);
-        //
 
         return "course/course_resource.html";
     }
