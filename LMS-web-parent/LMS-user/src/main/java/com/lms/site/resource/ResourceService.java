@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.lms.admin.resource;
+package com.lms.site.resource;
 
-import com.lms.commom.entity.Chapter;
 import com.lms.commom.entity.Resources;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,22 +13,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author LENOVO
+ * @author Admin
  */
 @Service
 @Transactional
 public class ResourceService {
-
+    
     @Autowired
-    ResourceRepository resourceRepository;
-
-    public void saveResources (Chapter chapter, Resources resources){
-        resources.setChapter(chapter);
-        resourceRepository.save(resources);
-    }
+    ResourceRepository repository;
     
     public List<Resources> getResourceByChapterId(int Id) {
-        return resourceRepository.findByChapter_Id(Id);
+        return repository.findByChapter_Id(Id);
     }
     
 }

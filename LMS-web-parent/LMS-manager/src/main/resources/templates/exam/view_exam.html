@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://kit.fontawesome.com/a7e26ec4f2.js" crossorigin="anonymous"></script>
+        <link href="../static/css/course.css" th:href="@{/css/course.css}" rel="stylesheet"/>
+    </head>
+    <body>
+        <div class="container-fluid" >
+            <div th:replace ="nav_bar :: header_menu">
+            </div>
+            <div class="text-center">
+                <h1>List Exam</h1>
+            </div>
+            &nbsp;
+            <div th:if= "${Empty != null}" class="alert alert-danger" role="alert" th:text="${Empty}">
+            </div>
+            <div th:each="Exam: ${listExams}" style="margin-bottom: 20px">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${Exam.name}"></h5>
+                        <p class="card-text" th:text="${Exam.duration}"></p>
+                        <span class="card-text" th:text="${Exam.available}"></span>
+                        <span class="card-text" th:text="${Exam.due}"></span>
+                        <!--                        <form th:action="@{/join}" method="get" th:oject="${course}" >
+                                                    <input type="hidden" name="id" id="id" th:value="${Course.id}"/>
+                                                    <input type="submit" value="Join" class="btn btn-primary" />
+                                                    &nbsp;
+                                                </form>-->
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                Total Exam : [[${totalItem}]] - Page [[${pageNum}]] of
+                [[${totalPage}]] &nbsp;  
+                <span
+                    th:each="i: ${#numbers.sequence(1, totalPage)}"> <a
+                        th:if="${i != pageNum}" th:href="@{'/exam/page/' +${i}}">
+                        [[${i}]] </a> <span th:unless="${i != pageNum}">[[${i}]] </span>
+                    &nbsp;&nbsp;
+                </span>
+            </div> 
+        </div>
+        <div th:replace ="nav_bar :: footer_menu">
+        </div>
+
+        <script>
+            const searchEl = document.querySelector('.searchbox');
+            const x = document.querySelectorAll('.card-title, .card-text');
+
+            function search(e) {
+                x.forEach((item, index) => {
+                    if (!item.innerHTML.toLowerCase().includes((e.target.value.toString()).toLowerCase())) {
+                        item.parentElement.style.display = 'none';
+                    } else {
+                        item.parentElement.style.display = 'block';
+                    }
+                })
+            }
+
+            searchEl.addEventListener("keyup", search);
+        </script>
+    </body>
+</html>

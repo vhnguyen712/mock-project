@@ -33,48 +33,51 @@ and open the template in the editor.
         <div class="text-center">
             <h1>Welcome to course</h1>
         </div>
+
+        <div><a th:href="@{'/view_exam/' + ${course_id}}">List Exam</a></div>
+
+        <div th:if= "${Empty != null}" class="alert alert-danger" role="alert" th:text="${Empty}">
+        </div>
+
         <div th:each="Chapter: ${chapter}" style="margin-bottom: 20px">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title" th:text="${Chapter.name}"></h5>
-                    <span class="card-text" th:text="${Chapter.description}"></span><br/>
-                    <!--                    <a href="mapmu.jpg" download>link</a>
-                                        <img src="../../upload/mapmu.jpg" alt=""/>-->
-                    <div>
-                        <input type="button" class="btn btn-primary" th:id="addresourcebtn" value="Add Resources" th:onclick="|showForm('${Chapter.id}')|">
-                        <form th:action="@{/upload_file}" method="post" enctype="multipart/form-data" class="form row">
-                            <div class="border border-secondary rounded p-3" th:id="'addresourceform'+${Chapter.id}"  style="display : none">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">Upload resource</label>
-                                    <div class="col-sm-8">
-                                        <input type="file" name="file" size="60" required class="form-control"/>
-                                        <input type="hidden" th:value="${Chapter.id}" name="chapterId">
-                                    </div>
-                                </div>
-                                <div class="text-center">
-                                    <input type="submit" id="uploadbtn" value="upload" class="btn btn-success">
-                                    <input type="button" class="btn btn-light" th:id="closeformbtn" value="Close" th:onclick="|closeForm('${Chapter.id}')|">
+                    <h5 class="card-title" th:text="${Chapter.key.name}"></h5>
+                    <span class="card-text" th:text="${Chapter.key.description}"></span>
+                    <div th:each="Resource: ${Chapter.value}">
+                        <a href="${Resource.url}" download>
+                            <span class="card-text" th:text="${Resource.url}"></span>
+                        </a>
+                    </div>
+                    <input type="button" class="btn btn-primary" id="addresourcebtn" value="Add Resources" th:onclick="|showForm('${Chapter.id}')|">
+                    <form th:action="@{/upload_file}" method="post" enctype="multipart/form-data" class="form row">
+                        <div class="border border-secondary rounded p-3" id="addresourceform" style="display : none">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Upload resource</label>
+                                <div class="col-sm-8">
+                                    <input type="file" name="file" size="60" required class="form-control"/>
+                                    <input type="hidden" th:value="${Chapter.key.id}" name="chapterId">
                                 </div>
                             </div>
-                        </form>
-                        <script th:inline="javascript">
-                            function showForm(id) {
-                                document.querySelector('#addresourceform'+id).style.display = 'block';
-                            };
-                            function closeForm(id) {
-                                document.querySelector('#addresourceform'+id).style.display = 'none';
-                            };
-                        </script>
-                    </div>
+                            <div class="text-center">
+                                <input type="submit" id="uploadbtn" value="upload" class="btn btn-success">
+                                <input type="button" class="btn btn-light" th:id="closeformbtn" value="Close" th:onclick="|closeForm('${Chapter.id}')|">
+                            </div>
+                        </div>
+                    </form>
+                    <script th:inline="javascript">
+                        function showForm(id) {
+                            document.querySelector('#addresourceform' + id).style.display = 'block';
+                        }
+                        ;
+                        function closeForm(id) {
+                            document.querySelector('#addresourceform' + id).style.display = 'none';
+                        }
+                        ;
+                    </script>
                 </div>
             </div>
         </div>
     </div>
-    <script>
-        let btnadd = document.querySelector('#addresourcebtn');
-        btnadd.addEventListener('click', () => {
-            document.querySelector('#addresourceform').style.display = 'block';
-        });
-    </script>
 </body>
 </html>

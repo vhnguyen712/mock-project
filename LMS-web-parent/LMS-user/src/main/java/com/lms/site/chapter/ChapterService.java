@@ -6,7 +6,6 @@
 package com.lms.site.chapter;
 
 import com.lms.commom.entity.Chapter;
-import com.lms.commom.entity.Course;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

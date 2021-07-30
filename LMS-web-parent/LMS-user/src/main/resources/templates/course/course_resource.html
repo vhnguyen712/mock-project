@@ -26,8 +26,13 @@ and open the template in the editor.
         <div th:each="Chapter: ${chapter}" style="margin-bottom: 20px">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title" th:text="${Chapter.name}"></h5>
-                    <span class="card-text" th:text="${Chapter.description}"></span>
+                    <h5 class="card-title" th:text="${Chapter.key.name}"></h5>
+                    <span class="card-text" th:text="${Chapter.key.description}"></span>
+                    <div th:each="Resource: ${Chapter.value}">
+                        <a th:href="@{'/download'(url=${Resource.url})}">
+                            <span class="card-text" th:text="${Resource.url}"></span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

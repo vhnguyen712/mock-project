@@ -77,6 +77,15 @@ and open the template in the editor.
     }
 
     searchEl.addEventListener("keyup", search);
+
+</script>
+<script th:inline="javascript">
+    $(document).ready(function () {
+        var action = /*[[${message}]]*/ "";
+        if (action === 'saved') {
+            alert("Attend Successfull!!!");
+        }
+    });
 </script>
 </body>
 </html>
