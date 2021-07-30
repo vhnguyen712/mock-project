@@ -42,10 +42,22 @@ and open the template in the editor.
         <div th:each="Chapter: ${chapter}" style="margin-bottom: 20px">
             <div class="card">
                 <div class="card-body">
+<<<<<<< HEAD
                     <h5 class="card-title" th:text="${Chapter.name}"></h5>
                     <span class="card-text" th:text="${Chapter.description}"></span><br/>
                     <!--                    <a href="mapmu.jpg" download>link</a>
                                         <img src="../../upload/mapmu.jpg" alt=""/>-->
+=======
+                    <h5 class="card-title" th:text="${Chapter.key.name}"></h5>
+                    <span class="card-text" th:text="${Chapter.key.description}"></span>
+                    <div th:each="Resource: ${Chapter.value}">
+                        <a href="${Resource.url}" download>
+                            <span class="card-text" th:text="${Resource.url}"></span>
+                        </a>
+                    </div>
+<!--                    <a href="mapmu.jpg" download>link</a>
+                    <img src="../../upload/mapmu.jpg" alt=""/>-->
+>>>>>>> 08312874a133947342fb438c031f0e7a9d33d052
                     <input type="button" class="btn btn-primary" id="addresourcebtn" value="Add Resources">
                     <form th:action="@{/upload_file}" method="post" enctype="multipart/form-data" class="form row">
                         <div class="border border-secondary rounded p-3" id="addresourceform" style="display : none">
@@ -53,7 +65,7 @@ and open the template in the editor.
                                 <label class="col-sm-4 col-form-label">Upload resource</label>
                                 <div class="col-sm-8">
                                     <input type="file" name="file" size="60" required class="form-control"/>
-                                    <input type="hidden" th:value="${Chapter.id}" name="chapterId">
+                                    <input type="hidden" th:value="${Chapter.key.id}" name="chapterId">
                                 </div>
                             </div>
                             <div class="text-center">

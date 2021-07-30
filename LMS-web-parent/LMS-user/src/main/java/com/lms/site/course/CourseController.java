@@ -26,6 +26,7 @@ import com.lms.commom.entity.Course;
 import com.lms.commom.entity.CourseMember;
 import com.lms.commom.entity.User;
 import com.lms.site.user.UserService;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -34,83 +35,86 @@ import com.lms.site.user.UserService;
 @Controller
 public class CourseController {
 
-	@Autowired
-	CourseService courseService;
+    @Autowired
+    CourseService courseService;
 
-	@Autowired
-	CourseMemberService memberService;
+    @Autowired
+    CourseMemberService memberService;
 
-	@Autowired
-	UserService userService;
+    @Autowired
+    UserService userService;
 
-	@GetMapping("/course")
-	public String showFirstPage(Model model, HttpServletRequest request) {
+    @GetMapping("/course")
+    public String showFirstPage(Model model, HttpServletRequest request, @ModelAttribute("message") String message) {
 
-		return listByPage(1, model, null, request);
-	}
+        model.addAttribute("message", message);
+        return listByPage(1, model, null, request);
+    }
 
-	@GetMapping("/course/page/{pageNum}")
-	public String listByPage(@PathVariable("pageNum") int pageNum, Model model, @Param("keyword") String keyword,
-			HttpServletRequest request) {
+    @GetMapping("/course/page/{pageNum}")
+    public String listByPage(@PathVariable("pageNum") int pageNum, Model model, @Param("keyword") String keyword,
+            HttpServletRequest request) {
 
-		String email = userService.getEmailOfAuthenticatedUser(request);
+        String email = userService.getEmailOfAuthenticatedUser(request);
 
-		User user = userService.getUserByEmail(email);
+        User user = userService.getUserByEmail(email);
 
-		Page<Course> page = courseService.listByPage(pageNum, keyword);
-		List<Course> listCourses = page.getContent();
+        Page<Course> page = courseService.listByPage(pageNum, keyword);
+        List<Course> listCourses = page.getContent();
 
-		CourseMember member = new CourseMember();
-		model.addAttribute("member", member);
-		model.addAttribute("user", user);
+        CourseMember member = new CourseMember();
+        model.addAttribute("member", member);
+        model.addAttribute("user", user);
 
-		if (listCourses != null) {
-			model.addAttribute("listCourse", listCourses);
-		} else {
-			model.addAttribute("Empty", "No course found.");
-		}
+        if (listCourses != null) {
+            model.addAttribute("listCourse", listCourses);
+        } else {
+            model.addAttribute("Empty", "No course found.");
+        }
 
-		long totalItem = page.getTotalElements();
-		int totalPage = page.getTotalPages();
+        long totalItem = page.getTotalElements();
+        int totalPage = page.getTotalPages();
 
-		model.addAttribute("pageNum", pageNum);
-		model.addAttribute("totalItem", totalItem);
-		model.addAttribute("totalPage", totalPage);
-		model.addAttribute("listCourses", listCourses);
-		model.addAttribute("keyword", keyword);
+        model.addAttribute("pageNum", pageNum);
+        model.addAttribute("totalItem", totalItem);
+        model.addAttribute("totalPage", totalPage);
+        model.addAttribute("listCourses", listCourses);
+        model.addAttribute("keyword", keyword);
 
-		return "course/course";
-	}
+        return "course/course";
+    }
 
-	@PostMapping("/attend")
-	public String attendCourse(@ModelAttribute("member") CourseMember member)
-			throws UnsupportedEncodingException, MessagingException {
-		memberService.attend(member);
-		return "redirect:/course";
-	}
+    @PostMapping("/attend")
+    public String attendCourse(@ModelAttribute("member") CourseMember member,
+            RedirectAttributes redirectAttributes)
+            throws UnsupportedEncodingException, MessagingException {
+        memberService.attend(member);
+        redirectAttributes.addFlashAttribute("message", "saved");
+        return "redirect:/course";
+    }
 
-	@SuppressWarnings("unused")
-	@GetMapping("/mycourse")
-	public String showMyCourse(Model model, HttpServletRequest request) {
-		String email = userService.getEmailOfAuthenticatedUser(request);
+    @SuppressWarnings("unused")
+    @GetMapping("/mycourse")
+    public String showMyCourse(Model model, HttpServletRequest request) {
+        String email = userService.getEmailOfAuthenticatedUser(request);
 
-		User user = userService.getUserByEmail(email);
+        User user = userService.getUserByEmail(email);
 
-		List<CourseMember> myCourse = memberService.getMyCourse(user.getId());
+        List<CourseMember> myCourse = memberService.getMyCourse(user.getId());
 
-		List<Course> listCourse = new ArrayList<>();
-		for (CourseMember courseMember : myCourse) {
-			listCourse.add(courseService.getCourse(courseMember.getCourseId()));
-		}
-		if (listCourse != null) {
-			model.addAttribute("listCourse", listCourse);
-		} else {
-			model.addAttribute("Empty", "No course found.");
-		}
+        List<Course> listCourse = new ArrayList<>();
+        for (CourseMember courseMember : myCourse) {
+            listCourse.add(courseService.getCourse(courseMember.getCourseId()));
+        }
+        if (listCourse != null) {
+            model.addAttribute("listCourse", listCourse);
+        } else {
+            model.addAttribute("Empty", "No course found.");
+        }
 
-		CourseMember member = new CourseMember();
+        CourseMember member = new CourseMember();
 
-		model.addAttribute("member", member);
-		return "course/my_course";
-	}
+        model.addAttribute("member", member);
+        return "course/my_course";
+    }
 }

@@ -14,20 +14,20 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class FileService {
 
-    @Value("D:\\Project Document\\Mock-Project\\mock-project\\LMS-web-parent\\LMS-manager\\src\\main\\resources\\upload")
     public String uploadDir;
 
     public void uploadFile(MultipartFile file) throws Exception {
 
         try {
-        	System.out.println(uploadDir);
+            uploadDir = System.getProperty("user.dir") + "\\src\\main\\resources\\upload";
+            System.out.println(uploadDir);
             Path copyLocation = Paths
-                .get(uploadDir + File.separator + StringUtils.cleanPath(file.getOriginalFilename()));
+                    .get(uploadDir + File.separator + StringUtils.cleanPath(file.getOriginalFilename()));
             Files.copy(file.getInputStream(), copyLocation, StandardCopyOption.REPLACE_EXISTING);
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("Could not store file " + file.getOriginalFilename()
-                + ". Please try again!");
+                    + ". Please try again!");
         }
     }
 }

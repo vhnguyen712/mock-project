@@ -1,10 +1,15 @@
 package com.lms.admin.chapter;
 
 import com.lms.admin.course.CourseService;
+import com.lms.admin.resource.ResourceService;
 import com.lms.commom.entity.Chapter;
 import com.lms.commom.entity.Course;
+import com.lms.commom.entity.CourseMember;
+import com.lms.commom.entity.Resources;
+import java.util.LinkedHashMap;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,13 +20,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class ChapterController {
-    
+
     @Autowired
     CourseService courseService;
-    
+
     @Autowired
     ChapterService chapterService;
-    
+
+    @Autowired
+    ResourceService resourceService;
+
     @GetMapping("/add_chapter/{id}")
     public String showAddChapterForm(@PathVariable("id") String id, Model model) {
         model.addAttribute("chapter", new Chapter());
@@ -30,9 +38,9 @@ public class ChapterController {
         model.addAttribute("course", course);
         return "course/resource/add_chapter_form";
     }
-    
+
     @PostMapping("/add_chapter")
-    public String createChapter(Chapter chapter, HttpServletRequest request, Model model ){
+    public String createChapter(Chapter chapter, HttpServletRequest request, Model model) {
         int id = Integer.parseInt(request.getParameter("courseId"));
         Course course = courseService.findCourseById(id);
         chapterService.saveChapter(chapter, course);
@@ -41,14 +49,31 @@ public class ChapterController {
         model.addAttribute("chapter", chapterByCourseId);
         return "course/course_resource";
     }
-    
+
     @GetMapping("/join")
     public String showChapter(@ModelAttribute("course") Course course, Model model) {
-
         List<Chapter> chapterByCourseId = chapterService.getChapterByCourseId(course.getId());
-        model.addAttribute("course_id", course.getId());
-        model.addAttribute("chapter", chapterByCourseId);
-        return "course/course_resource";
-    }
 
+        model.addAttribute("course_id", course.getId());
+
+        model.addAttribute("chapter", chapterByCourseId);
+        LinkedHashMap<Chapter, List<Resources>> map = new LinkedHashMap<>();
+
+        for (Chapter chapter : chapterByCourseId) {
+            System.out.println(chapter.getName());
+            List<Resources> resourceByChapterId = resourceService.getResourceByChapterId(chapter.getId());
+
+            map.put(chapter, resourceByChapterId);
+
+        }
+
+        Set<Chapter> keySet = map.keySet();
+        for (Chapter key : keySet) {
+            System.out.println(key.getName());
+        }
+        model.addAttribute("chapter", map);
+        //
+
+        return "course/course_resource.html";
+    }
 }

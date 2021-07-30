@@ -32,7 +32,7 @@ public class ExamService {
     @Autowired
     CourseRepository courseRepository;
 
-    public List<Exam> findAllExam() {
+    public List<Exam> findAll() {
         return (List<Exam>) examRepository.findAll();
     }
 
