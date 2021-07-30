@@ -53,10 +53,6 @@ public class ChapterController {
     @GetMapping("/join")
     public String showChapter(@ModelAttribute("course") Course course, Model model) {
         List<Chapter> chapterByCourseId = chapterService.getChapterByCourseId(course.getId());
-
-        model.addAttribute("course_id", course.getId());
-
-        model.addAttribute("chapter", chapterByCourseId);
         LinkedHashMap<Chapter, List<Resources>> map = new LinkedHashMap<>();
 
         for (Chapter chapter : chapterByCourseId) {
