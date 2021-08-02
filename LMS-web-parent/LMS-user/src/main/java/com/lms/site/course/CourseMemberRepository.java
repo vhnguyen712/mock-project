@@ -12,14 +12,13 @@ import com.lms.commom.entity.CourseMember;
 import com.lms.commom.entity.CourseMemberKey;
 import java.util.List;
 
+
 /**
  *
  * @author Admin
  */
 
 @Repository
-public interface CourseMemberRepository extends JpaRepository<CourseMember, CourseMemberKey>{
-    
+public interface CourseMemberRepository extends JpaRepository<CourseMember, CourseMemberKey> {
     List<CourseMember> findByUserId(int userId);
-    
 }

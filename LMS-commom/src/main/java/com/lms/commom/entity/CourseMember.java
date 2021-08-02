@@ -42,4 +42,10 @@ public class CourseMember implements Serializable {
     private int userId;
     
     private boolean status;
+
+    
+    public boolean isStatus() {
+        return status;
+    }
+    
 }
