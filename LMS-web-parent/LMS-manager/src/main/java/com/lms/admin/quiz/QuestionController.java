@@ -5,6 +5,7 @@
  */
 package com.lms.admin.quiz;
 
+import com.lms.admin.course.CourseService;
 import com.lms.admin.exam.ExamService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.lms.commom.entity.Question;
 import com.lms.commom.entity.Answer;
+import com.lms.commom.entity.Course;
 import com.lms.commom.entity.Exam;
 import java.util.List;
 import java.util.Optional;
@@ -45,6 +47,9 @@ public class QuestionController {
     @Autowired
     ExamService examService;
 
+    @Autowired
+    CourseService courseService;
+    
     @Autowired
     AnswerService answerService;
 
@@ -99,8 +104,11 @@ public class QuestionController {
     public String showCreateQuestion(Model model) {
         try {
             List<Exam> listExam = examService.findAll();
+            List<Course> listCourse = courseService.findAllCourse();
             model.addAttribute("exams", listExam);
+            model.addAttribute("courses", listCourse);
             model.addAttribute("question", new Question());
+//            System.out.println(listCourse);
             return "quiz/create_question";
         } catch (Exception e) {
             System.out.println("error");
@@ -288,6 +296,7 @@ public class QuestionController {
     @GetMapping("/view_quiz/edit/{id}")
     public String viewAnswer(@PathVariable("id") Integer id, Model model) {
         try {
+            List<Course> listCourse = courseService.findAllCourse();
             Question question = questionService.questionByID(id);
             List<Answer> answers = answerService.getAnswerByQuestion(id);
             List<Exam> listExam = examService.findAll();
@@ -304,6 +313,7 @@ public class QuestionController {
 
             // add attribute
             model.addAttribute("exams", listExam);
+            model.addAttribute("courses", listCourse);
             model.addAttribute("question", question);
             model.addAttribute("answer1", answer1);
             model.addAttribute("answer2", answer2);
