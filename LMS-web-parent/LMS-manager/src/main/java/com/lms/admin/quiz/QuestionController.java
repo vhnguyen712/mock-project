@@ -296,6 +296,7 @@ public class QuestionController {
     @GetMapping("/view_quiz/edit/{id}")
     public String viewAnswer(@PathVariable("id") Integer id, Model model) {
         try {
+            List<Course> listCourse = courseService.findAllCourse();
             Question question = questionService.questionByID(id);
             List<Answer> answers = answerService.getAnswerByQuestion(id);
             List<Exam> listExam = examService.findAll();
@@ -312,6 +313,7 @@ public class QuestionController {
 
             // add attribute
             model.addAttribute("exams", listExam);
+            model.addAttribute("courses", listCourse);
             model.addAttribute("question", question);
             model.addAttribute("answer1", answer1);
             model.addAttribute("answer2", answer2);

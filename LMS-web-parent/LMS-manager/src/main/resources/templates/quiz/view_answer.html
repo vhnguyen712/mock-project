@@ -31,11 +31,13 @@ and open the template in the editor.
                     <label class="col-sm-4 col-form-label">Select Exam: </label>
                     <div class="col-sm-8">
                         <select name="optExam">
-                            <option th:value="${question.exam.id}">[[${question.exam.name}]]</option>
-                            <option th:each="exam : ${exams}"
-                                    th:if="${question.exam.name != exam.name}"
+                            <option value="">Choose your option</option>
+                            <optgroup th:each="course : ${courses}"
+                                      th:label="${course.name}">
+                                <option th:each="exam : ${course.exams}" 
                                     th:value="${exam.id}"
-                                    th:utext="${exam.name}"/>
+                                        th:utext="${exam.name}"/>
+                            </optgroup>
                         </select>
                     </div>
                 </div>	

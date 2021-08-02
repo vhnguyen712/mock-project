@@ -46,7 +46,7 @@
                                                     <td>
                                                             <a class="fas fa-user-edit" th:userId="${question.id}" th:href="@{'/view_quiz/edit/' + ${question.id}}">Edit</a>
                                                     &nbsp; 
-                                                            <a class="fas fa-user-slash link-delete" th:userId="${question.id}" th:href="@{'/view_quiz/delete/' + ${question.id}}">Delete</a>
+                                                            <a class="fas fa-user-slash link-delete" th:userId="${question.id}" onclick="return confirm('Are you sure you want to delete this question?');" th:href="@{'/view_quiz/delete/' + ${question.id}}">Delete</a>
                                                     </td>
                                             </tr>
                                             
