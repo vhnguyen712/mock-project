@@ -23,14 +23,17 @@ import org.springframework.stereotype.Repository;
 public interface ExamRepository extends PagingAndSortingRepository<Exam, Integer> {
 
     @Query("Select e From Exam e Where course_id = ?1 ")
-    List<Exam> listExamsOfTeacher(int course_id);
+    List<Exam> listExamsOfTeacher(int id);
 
     @Query("Select e From Exam e Where e.name LIKE %?1%")
     public Page<Exam> findAll(String keyword, Pageable pageable);
 
-    @Query("Select e From Exam e Where e.course.id = ?1 and e.name like %?2%" )
-    public Page<Exam> findByCourse_Id(int course_id,Pageable pageable,String keyword );
-    
-    @Query("Select e From Exam e Where e.course.id = ?1 " )
-    public Page<Exam> findByCourse_Id(int course_id,Pageable pageable );
+    @Query("Select e From Exam e Where e.course.id = ?1 and e.name like %?2%")
+    public Page<Exam> findByCourse_Id(int id, Pageable pageable, String keyword);
+
+    @Query("Select e From Exam e Where e.course.id = ?1 ")
+    public Page<Exam> findByCourse_Id(int id, Pageable pageable);
+
+    public List<Exam> findByCourse_Id(int id);
+
 }

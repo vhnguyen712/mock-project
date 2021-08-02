@@ -34,7 +34,7 @@ and open the template in the editor.
             <h1>Welcome to course</h1>
         </div>
 
-        <div><a th:href="@{'/view_exam/' + ${course_id}}">List Exam</a></div>
+        <div><a th:href="@{'/view_exam/' + ${id}}">List Exam</a></div>
 
         <div th:if= "${Empty != null}" class="alert alert-danger" role="alert" th:text="${Empty}">
         </div>

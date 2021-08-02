@@ -43,7 +43,7 @@ public class ExamService {
         Pageable pageable = PageRequest.of(pageNum - 1, EXAM_PER_PAGE);
 
         if (keyword != null) {
-            return examRepository.findByCourse_Id(id, pageable,keyword);
+            return examRepository.findByCourse_Id(id, pageable, keyword);
         }
 
         return examRepository.findByCourse_Id(id, pageable);
@@ -66,7 +66,12 @@ public class ExamService {
         return listExam;
     }
 
-//    public List<Exam> getExamByCourseId(int course_id) {
-//        return repository.findByCourse_Id(course_id);
-//    }
+    public List<Exam> getExamByCourse(int id) {
+        return examRepository.findByCourse_Id(id);
+
+    }
+
+    void deleteExam(Integer id) {
+        examRepository.deleteById(id);
+    }
 }
