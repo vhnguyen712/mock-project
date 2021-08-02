@@ -25,10 +25,21 @@ and open the template in the editor.
             <div th:each="Exam: ${listExams}" style="margin-bottom: 20px">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title" th:text="${Exam.name}"></h5>
-                        <p class="card-text" th:text="${Exam.duration}"></p>
-                        <span class="card-text" th:text="${Exam.available}"></span>
-                        <span class="card-text" th:text="${Exam.due}"></span>
+                        <h5>
+                            <span> Exam name:</span>
+                            <span class="card-title" th:text="${Exam.name}"></span>
+                        </h5>
+                        <h6>
+                            <span>Time:</span>
+                            <span class="card-text" th:text="${Exam.duration}"></span>
+                            <span>Minutes</span>
+                        </h6>
+
+                        <span> Available exam:</span>
+                        <p class="card-text" th:text="${Exam.available}"></p>
+                        <span> Due exam:</span>
+                        <p class="card-text" th:text="${Exam.due}"></p>
+
                         <!--                        <form th:action="@{/join}" method="get" th:oject="${course}" >
                                                     <input type="hidden" name="id" id="id" th:value="${Course.id}"/>
                                                     <input type="submit" value="Join" class="btn btn-primary" />
@@ -36,7 +47,7 @@ and open the template in the editor.
                                                 </form>-->
                         &nbsp;
                         <form>
-                            <a th:href="@{'/exam/edit/' + ${Exam.id}}" class="btn btn-primary">Modify Exam</a>
+                            <!--                            <a th:href="@{'/exam/edit/' + ${Exam.id}}" class="btn btn-primary">Modify Exam</a>-->
                             <a th:href="@{'/exam/delete/' + ${Exam.id}}" class="btn btn-primary" 
                                onclick="return confirm('Are you sure you want to delete this Exam now?');">Delete Exam</a>
                             &nbsp;
