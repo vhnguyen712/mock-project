@@ -1,15 +1,19 @@
 package com.lms.admin.chapter;
 
 import com.lms.admin.course.CourseService;
+import com.lms.admin.exam.ExamRepository;
+import com.lms.admin.exam.ExamService;
 import com.lms.admin.resource.ResourceService;
 import com.lms.commom.entity.Chapter;
 import com.lms.commom.entity.Course;
 import com.lms.commom.entity.CourseMember;
+import com.lms.commom.entity.Exam;
 import com.lms.commom.entity.Resources;
 import java.util.LinkedHashMap;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Set;
+import static org.hibernate.criterion.Projections.id;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +33,9 @@ public class ChapterController {
 
     @Autowired
     ResourceService resourceService;
+
+    @Autowired
+    ExamService examService;
 
     @GetMapping("/add_chapter/{id}")
     public String showAddChapterForm(@PathVariable("id") String id, Model model) {
@@ -53,6 +60,7 @@ public class ChapterController {
     @GetMapping("/join")
     public String showChapter(@ModelAttribute("course") Course course, Model model) {
         List<Chapter> chapterByCourseId = chapterService.getChapterByCourseId(course.getId());
+        List<Exam> listExam = examService.getExamByCourse(course.getId());
 
         LinkedHashMap<Chapter, List<Resources>> map = new LinkedHashMap<>();
 
@@ -63,6 +71,8 @@ public class ChapterController {
             map.put(chapter, resourceByChapterId);
 
         }
+        model.addAttribute("id", course.getId());
+
         model.addAttribute("chapter", map);
         //
 
