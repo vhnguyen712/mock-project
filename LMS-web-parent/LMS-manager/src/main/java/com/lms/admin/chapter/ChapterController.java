@@ -60,6 +60,7 @@ public class ChapterController {
     @GetMapping("/join")
     public String showChapter(@ModelAttribute("course") Course course, Model model) {
         List<Chapter> chapterByCourseId = chapterService.getChapterByCourseId(course.getId());
+        //List Exam - ko xoa
         List<Exam> listExam = examService.getExamByCourse(course.getId());
 
         LinkedHashMap<Chapter, List<Resources>> map = new LinkedHashMap<>();
@@ -71,6 +72,7 @@ public class ChapterController {
             map.put(chapter, resourceByChapterId);
 
         }
+        //model Exam - ko xoa
         model.addAttribute("id", course.getId());
 
         model.addAttribute("chapter", map);
