@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.lms.commom.entity.Course;
 import com.lms.commom.entity.CourseMember;
+import com.lms.commom.entity.CourseMemberKey;
 import com.lms.commom.entity.User;
 import com.lms.site.user.UserService;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -88,8 +89,13 @@ public class CourseController {
     public String attendCourse(@ModelAttribute("member") CourseMember member,
             RedirectAttributes redirectAttributes)
             throws UnsupportedEncodingException, MessagingException {
-        memberService.attend(member);
-        redirectAttributes.addFlashAttribute("message", "saved");
+        
+        if (memberService.getMyJoinedCourse(member.getUserId(), member.getCourseId()) != null) {
+            redirectAttributes.addFlashAttribute("message", "invalid");
+        } else {
+            memberService.attend(member);
+            redirectAttributes.addFlashAttribute("message", "saved");
+        }
         return "redirect:/course";
     }
 

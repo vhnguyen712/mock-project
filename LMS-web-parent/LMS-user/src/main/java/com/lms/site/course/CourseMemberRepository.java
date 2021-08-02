@@ -20,5 +20,7 @@ import java.util.List;
 
 @Repository
 public interface CourseMemberRepository extends JpaRepository<CourseMember, CourseMemberKey> {
-    List<CourseMember> findByUserId(int userId);
+    List<CourseMember> findByUserIdAndStatus(int userId, boolean status);
+    
+    CourseMember findByUserIdAndCourseId(int userId, int courseId);
 }

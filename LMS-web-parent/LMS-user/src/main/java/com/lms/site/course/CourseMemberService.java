@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.lms.commom.entity.CourseMember;
+import com.lms.commom.entity.CourseMemberKey;
 import java.util.List;
 
 /**
@@ -29,7 +30,10 @@ public class CourseMemberService {
     }
     
     public List<CourseMember> getMyCourse(int id) {
-        return memberRepository.findByUserId(id);
+        return memberRepository.findByUserIdAndStatus(id, true);
     }
     
+    public CourseMember getMyJoinedCourse(int userId, int courseId) {
+        return memberRepository.findByUserIdAndCourseId(userId, courseId);
+    }
 }
