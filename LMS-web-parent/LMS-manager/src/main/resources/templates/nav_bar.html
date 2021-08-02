@@ -30,6 +30,9 @@
 						<li class="nav-item" sec:authorize="hasAuthority('Admin')">
 							<a class="nav-link" th:href="@{/managers}">Managers</a>
 						</li>
+                                                <li class="nav-item" sec:authorize="hasAuthority('Teacher')">
+							<a class="nav-link" th:href="@{/ban_member}">Ban Member</a>
+						</li>
 						<li class="nav-item">
 							<a class="nav-link" th:href="@{/cart}">Contact Us</a>
 						</li>
@@ -48,6 +51,7 @@
 						<a class="nav-link dropdown-toggle"  data-toggle="dropdown"  sec:authentication="name"></a>
 						</th:block>
 						<div class="dropdown-menu">
+                                                          <a class="dropdown-item" th:href="@{/ban_member}">Ban Member</a>
 							 <form th:action="@{/logout}" method="post">
 								<input type="submit" value="Logout">
 							</form>
