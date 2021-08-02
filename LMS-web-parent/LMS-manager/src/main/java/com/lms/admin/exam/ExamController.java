@@ -114,7 +114,7 @@ public class ExamController {
         examService.saveExam(exam);
         redirectAttributes.addFlashAttribute("message", "Exam have been saved");
 
-        return "redirect:/";
+        return "redirect:/teacher_course";
     }
 
     @GetMapping("/exam/edit/{id}")
