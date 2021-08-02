@@ -17,7 +17,10 @@ public class MainController {
 	public String showIndex() {
 		return "index";
 	}
-	
+	@GetMapping("/contact")
+        public String showContact(){
+            return "contact/contact";
+        }
 	@GetMapping("/login")
 	public String showLoginPage() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
