@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>EXAM</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/a7e26ec4f2.js" crossorigin="anonymous"></script>
+    <link href="../static/css/course.css" th:href="@{/css/course.css}" rel="stylesheet"/>
+    <th:block th:insert="~{fragments :: link}"></th:block>
+
+    <th:block th:insert="~{fragments :: head/script}"></th:block>
+</head>
+<body>
+<div th:replace="nav_bar :: header_menu">
+</div>
+<div class="text-center">
+    <h2>Exam</h2>
+</div>
+<div class="container-fluid">
+
+    <ol type="1">
+        <div th:each="stuAns: ${listStudentAnswers}">
+            <li>
+                <div th:text="${stuAns.question.question}"></div>
+            </li>
+            <ol type="A">
+                <div th:each="answer: ${stuAns.question.answers}">
+                    <li>
+                        <p th:value="${answer.id}" th:text="${answer.choice}"/>
+                    </li>
+
+                </div>
+            </ol>
+            <div th:if="${stuAns.answer}">
+                Your answer:<p th:text="${stuAns.answer.choice}"/>
+            </div>
+            <div th:unless="${stuAns.answer}">
+                Your answer: You choose nothing!
+            </div>
+
+        </div>
+    </ol>
+    <br>
+    <a th:href="@{'/my_exams/'}" class="btn btn-primary">Click here to go back</a>
+</div>
+
+</body>
+</html>

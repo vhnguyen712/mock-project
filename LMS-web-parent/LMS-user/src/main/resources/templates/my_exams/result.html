@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>MY RESULT PAGE</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/a7e26ec4f2.js" crossorigin="anonymous"></script>
+    <link href="../static/css/course.css" th:href="@{/css/course.css}" rel="stylesheet"/>
+    <th:block th:insert="~{fragments :: link}"></th:block>
+
+    <th:block th:insert="~{fragments :: head/script}"></th:block>
+</head>
+<body>
+<div th:replace ="nav_bar :: header_menu">
+</div>
+<div class="container-fluid" >
+    <div class="text-center">
+        <h1>My Result</h1>
+    </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title" th:text="${studentExam.exam.course.name}"></h3>
+                <div th:text="${studentExam.exam.name}"></div>
+                Question: <div th:text="${count}"></div>
+                Correct: <div th:text="${correct}"></div>
+                <a th:href="@{'/my_exams/'}" class="btn btn-primary">Back to your Exam</a>
+            </div>
+        </div>
+
+</div>
+<script>
+    const searchEl = document.querySelector('.searchbox');
+    const x = document.querySelectorAll('.card-title, .card-text');
+
+    function search(e) {
+        x.forEach((item, index) => {
+            if (!item.innerHTML.toLowerCase().includes((e.target.value.toString()).toLowerCase())) {
+                item.parentElement.style.display = 'none';
+            } else {
+                item.parentElement.style.display = 'block';
+            }
+        })
+    }
+
+    searchEl.addEventListener("keyup", search);
+</script>
+</body>
+</html>

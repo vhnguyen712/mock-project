@@ -6,6 +6,7 @@
 package com.lms.site.course;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.lms.commom.entity.CourseMember;
@@ -21,5 +22,6 @@ import java.util.List;
 public interface CourseMemberRepository extends JpaRepository<CourseMember, CourseMemberKey>{
     
     List<CourseMember> findByUserId(int userId);
+
     
 }
