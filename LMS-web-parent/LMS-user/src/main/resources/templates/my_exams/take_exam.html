@@ -7,78 +7,79 @@ and open the template in the editor.
 
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<head>
-    <title>EXAM</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://kit.fontawesome.com/a7e26ec4f2.js" crossorigin="anonymous"></script>
-    <link href="../static/css/course.css" th:href="@{/css/course.css}" rel="stylesheet"/>
+    <head>
+        <title>EXAM</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://kit.fontawesome.com/a7e26ec4f2.js" crossorigin="anonymous"></script>
+        <link href="../static/css/course.css" th:href="@{/css/course.css}" rel="stylesheet"/>
     <th:block th:insert="~{fragments :: link}"></th:block>
 
     <th:block th:insert="~{fragments :: head/script}"></th:block>
 </head>
 <body>
-<div th:replace="nav_bar :: header_menu">
-</div>
-<div class="text-center">
-    <h2>Exam</h2>
-</div>
-<div class="container-fluid">
-<p id="time"></p>
-    <form th:action="@{/take_exam}" method="post" style="max-width: 600px; margin: 0 auto">
-        <ol type="1">
-            <div th:each="question: ${listQuest}">
-                <li>
-                    <div th:text="${question.question}"></div>
-                    <input type="hidden" name="questionId" th:value="${question.id}">
-                </li>
-                <ol type="A">
-                    <div th:each="answer: ${question.answers}">
-                        <li>
-                            <input type="radio" th:name="'question_'+${question.id}" th:value="${answer.id}" th:text="${answer.choice}">
-                        </li>
-                    </div>
-                </ol>
+    <div th:replace="nav_bar :: header_menu">
+    </div>
+    <div class="text-center">
+        <h2>Exam</h2>
+    </div>
+    <div class="container-fluid">
+        <p class="alert alert-info" style="width: 160px; margin: auto;" role="alert" id="time"></p>
+        <form th:action="@{/take_exam}" method="post" style="max-width: 600px; margin: 0 auto">
+            <ol type="1">
+                <div th:each="question: ${listQuest}">
+                    <li>
+                        <div th:text="${question.question}"></div>
+                        <input type="hidden" name="questionId" th:value="${question.id}">
+                    </li>
+                    <ol type="A">
+                        <div th:each="answer: ${question.answers}">
+                            <li>
+                                <input type="radio" th:name="'question_'+${question.id}" th:value="${answer.id}" th:text="${answer.choice}">
+                            </li>
+                        </div>
+                    </ol>
+                </div>
+            </ol>
+            <br>
+            <div id="timer">
+                <input type="hidden" name="duration" id="duration" th:value="${duration}">
             </div>
-        </ol>
-        <br>
-        <input type="hidden" name="exam_id" th:value="${examId}">
-        <input type="submit" value="Submit" class="btn btn-primary" id="submitBtn">
-    </form>
+            <input type="hidden" name="exam_id" th:value="${examId}">
+            <input type="submit" value="Submit" class="btn btn-primary" id="submitBtn">
+        </form>
 
-</div>
+    </div>
 
+    <script>
+        function startTimer(duration, display) {
+            var timer = duration, minutes, seconds;
+            setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
 
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
 
-<script>
-    function startTimer(duration, display) {
-        var timer = duration, minutes, seconds;
-        setInterval(function () {
-            minutes = parseInt(timer / 60, 10);
-            seconds = parseInt(timer % 60, 10);
+                display.textContent = "Time left | " + minutes + ":" + seconds;
 
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-            seconds = seconds < 10 ? "0" + seconds : seconds;
+                if (--timer < 0) {
+                    display.textContent = 'Time\'s up!!';
+                    document.querySelector('#submitBtn').click();
+                }
+            }, 1000);
+        }
 
-            display.textContent = minutes + ":" + seconds;
-
-            if (--timer < 0) {
-                display.textContent = 'Time\'s up!!';
-                document.querySelector('#submitBtn').click();
-            }
-        }, 1000);
-    }
-
-    window.onload = function ( ) {
+        window.onload = function ( ) {
 
 
 
-        var timeStart = 60 * 30,
-            display = document.querySelector('#time');
-        startTimer(timeStart, display);
-    };
-</script>
+            let timeStart = document.querySelector('#duration').getAttribute("value")*60,
+                    display = document.querySelector('#time');
+            startTimer(timeStart, display);
+        };
+    </script>
 </body>
 </html>
