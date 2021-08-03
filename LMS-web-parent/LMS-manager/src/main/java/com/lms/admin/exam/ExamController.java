@@ -122,23 +122,23 @@ public class ExamController {
 
         Exam exam = examService.getExam(id);
 
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//
-//        MyManagerDetail managerDetail = (MyManagerDetail) authentication.getPrincipal();
-//
-//        int manager_id = managerDetail.getId();
-//
-//        Manager manager = managerService.getManagerById(manager_id);
-//
-//        String name = request.getParameter("idCourse");
-//
-//        Course course = courseService.findCourseByName(name);
-//
-//        exam.setManager(manager);
-//        exam.setCourse(course);
-//        exam.setDue(due);
-//        exam.setAvailable(available);
-//        exam.setCreateDate(new Date());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        MyManagerDetail managerDetail = (MyManagerDetail) authentication.getPrincipal();
+
+        int manager_id = managerDetail.getId();
+
+        Manager manager = managerService.getManagerById(manager_id);
+
+        String name = request.getParameter("idCourse");
+
+        Course course = courseService.findCourseByName(name);
+
+        exam.setManager(manager);
+        exam.setCourse(course);
+        exam.setDue(due);
+        exam.setAvailable(available);
+        exam.setCreateDate(new Date());
         model.addAttribute("exam", exam);
         model.addAttribute("pageTitle", "Edit Exam");
 
