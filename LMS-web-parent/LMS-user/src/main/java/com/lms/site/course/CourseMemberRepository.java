@@ -20,15 +20,9 @@ import java.util.List;
  */
 
 @Repository
-<<<<<<< HEAD
 public interface CourseMemberRepository extends JpaRepository<CourseMember, CourseMemberKey> {
-    List<CourseMember> findByUserIdAndStatus(int userId, boolean status);
-=======
-public interface CourseMemberRepository extends JpaRepository<CourseMember, CourseMemberKey>{
     
-    List<CourseMember> findByUserId(int userId);
-
->>>>>>> origin/anhttd
+    List<CourseMember> findByUserIdAndStatus(int userId, boolean status);
     
     CourseMember findByUserIdAndCourseId(int userId, int courseId);
 }
