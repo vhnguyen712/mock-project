@@ -51,7 +51,7 @@ and open the template in the editor.
                     </div>
                     <input type="button" class="btn btn-primary" id="addresourcebtn" value="Add Resources" th:onclick="|showForm('${Chapter.key.id}')|">
                     <form th:action="@{/upload_file}" method="post" enctype="multipart/form-data" class="form row">
-                        <div class="border border-secondary rounded p-3" id="addresourceform" style="display : none">
+                        <div class="border border-secondary rounded p-3" th:id="'addresourceform'+${Chapter.key.id}" style="display : none">
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Upload resource</label>
                                 <div class="col-sm-8">
