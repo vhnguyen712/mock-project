@@ -23,7 +23,7 @@ import java.util.List;
 public interface ExamRepository extends JpaRepository<Exam, Integer> {
 
 
-    @Query("select e from Exam e where e.course.id = ?1 and e.available<?2 and e.due>?2")
+    @Query("select e from Exam e where e.course.id = ?1 and e.available<=?2 and e.due>=?2")
     public List<Exam> getExamByCourseID(int id, String date);
 
 }

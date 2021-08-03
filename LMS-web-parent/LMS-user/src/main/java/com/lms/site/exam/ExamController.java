@@ -148,6 +148,8 @@ public class ExamController {
             studentAnswer.setExam(exam);
             studentAnswer.setStudentExam(newExam);
 
+            
+            
             Question question = questionService.getQuestionById(Integer.parseInt(questionId));
             studentAnswer.setQuestion(question);
 
