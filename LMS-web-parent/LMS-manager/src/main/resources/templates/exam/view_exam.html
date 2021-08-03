@@ -46,7 +46,6 @@ and open the template in the editor.
                                                     &nbsp;
                                                 </form>-->
                         <form>
-                            <a th:href="@{'/exam/edit/' + ${Exam.id}}" class="btn btn-primary">Modify Exam</a>
                             <a th:href="@{'/exam/delete/' + ${Exam.id}}" class="btn btn-primary" 
                                onclick="return confirm('Are you sure you want to delete this Exam now?');">Delete Exam</a>
                         </form>
