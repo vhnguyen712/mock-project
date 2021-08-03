@@ -30,7 +30,7 @@ import lombok.ToString;
 public class Answer implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)

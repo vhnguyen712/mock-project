@@ -45,4 +45,7 @@ public class CourseService {
         return courseRepository.findById(id).get();
     }
 
+    public List<Integer> getCourseByMemberID(int id){
+        return courseRepository.getCourseByMemberID(id);
+    }
 }

@@ -3,29 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.lms.site.course;
+package com.lms.site.exam;
 
+import com.lms.commom.entity.Exam;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
-
-import com.lms.commom.entity.Course;
 
 import java.util.List;
 
 /**
  *
- * @author LENOVO
+ * @author Admin
  */
 @Repository
-public interface CourseRepository extends PagingAndSortingRepository<Course, Integer>{
- 
-	
-	@Query("Select c From Course c Where c.name LIKE %?1%")
-	public Page<Course> findAll(String keyword, Pageable pageable);
+public interface ExamRepository extends JpaRepository<Exam, Integer> {
 
-	@Query("select c.id from Course c where c.id = ?1")
-	public List<Integer> getCourseByMemberID(int id);
+
+    @Query("select e from Exam e where e.course.id = ?1 and e.available<?2 and e.due>?2")
+    public List<Exam> getExamByCourseID(int id, String date);
+
 }
