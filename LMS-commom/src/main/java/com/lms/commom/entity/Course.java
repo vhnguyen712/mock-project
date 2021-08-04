@@ -45,7 +45,7 @@ public class Course {
     private String description;
     private Boolean status;
     
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manager_id")
     private Manager manager;
     

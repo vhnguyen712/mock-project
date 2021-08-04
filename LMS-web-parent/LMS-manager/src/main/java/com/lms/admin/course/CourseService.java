@@ -73,6 +73,6 @@ public class CourseService {
 	}
 
 	public void delete(Integer id) {
-		courseRepository.deleteById(id);
+            courseRepository.deleteById(id);
 	}
 }
