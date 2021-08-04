@@ -24,7 +24,7 @@ and open the template in the editor.
         </div>
         &nbsp;
 
-        <form th:action="@{/create_question}" method="post" style="max-width: 600px; margin: 0 auto">
+        <form th:action="@{/create_question}" method="post" style="padding-bottom: 5%;max-width: 600px;position: relative; margin: 0 auto">
             <input type="hidden" th:value="${question.id}" name="questionID"/>
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Select Exam: </label>
@@ -107,7 +107,7 @@ and open the template in the editor.
         </form>
 
     </div>
-    <div th:replace ="nav_bar :: footer_menu">
-    </div>
 </body>
+<div th:replace ="nav_bar :: footer_menu">
+    </div>
 </html>

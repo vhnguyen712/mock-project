@@ -15,9 +15,10 @@ and open the template in the editor.
     <link href="../static/css/course.css" th:href="@{/css/course.css}" rel="stylesheet"/>
 </head>
 <body>
+    <div th:replace ="nav_bar :: header_menu">
+    </div>
     <div class="container-fluid" >
-        <div th:replace ="nav_bar :: header_menu">
-        </div>
+
         <div class="text-center">
             <h1>All Available Course</h1>
         </div>
@@ -54,7 +55,7 @@ and open the template in the editor.
 
     <script>
         const searchEl = document.querySelector('.searchbox');
-        const x = document.querySelectorAll('.card-title, .card-text');
+        const x = document.querySelectorAll('.card-title');
 
         function search(e) {
             x.forEach((item, index) => {

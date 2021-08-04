@@ -30,15 +30,8 @@
                         <li class="nav-item" sec:authorize="hasAuthority('Admin')">
                             <a class="nav-link" th:href="@{/managers}">Managers</a>
                         </li>
-                        <li class="nav-item" sec:authorize="hasAuthority('Teacher')">
-                            <a class="nav-link" th:href="@{/ban_member}">Ban Member</a>
-                        </li>
                         <li class="nav-item" sec:authorize="isAuthenticated() == false">
                             <a class="nav-link"  th:href="@{/login}">Login</a>
-                        </li>
-
-                        <li>
-                            <span><a class="fas fa-user fa-2x" sec:authorize="isAuthenticated() == true" th:href="@{/profile}"></a></span>
                         </li>
                         <li class="nav-item dropdown" >
                         <th:block sec:authorize="isAuthenticated()">
@@ -46,30 +39,23 @@
                         </th:block>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" th:href="@{/ban_member}">Ban Member</a>
+                            <a class="dropdown-item" th:href="@{/profile}">My Profile</a>
+                            <div class="dropdown-divider"></div>
                             <form th:action="@{/logout}" method="post">
-                                <input type="submit" value="Logout">
+                                <input class="dropdown-item" type="submit" value="Logout">
                             </form>
-                            <a class="nav-link dropdown-toggle"  data-toggle="dropdown" >Grades</a>
                         </div>
-                        </li>
-                        <li class="nav-item dropdown" sec:authorize="isAuthenticated() == true">
-                            <form th:action="@{/logout}" method="post">
-                                <input type="submit" value="Logout">
-                            </form>
                         </li>
                     </ul>
                 </div>
             </nav>
 
         </div>
-
-
         <div th:fragment="footer_menu" style="bottom:0;position:fixed; overflow: hidden; width:100%;">
             <footer class="py-5 bg">
                 <div>
                     <p class="m-0 text-center text-white">Copyright &copy; MOCK-LMS 2021 BY GROUP HONGNV</p>
                 </div>
-                <!-- /.container -->
             </footer>
         </div>
     </body>
