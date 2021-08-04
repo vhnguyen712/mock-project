@@ -9,22 +9,29 @@ and open the template in the editor.
         <title>Contact</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <script src="https://kit.fontawesome.com/a7e26ec4f2.js" crossorigin="anonymous"></script>
-        <link rel="shortcut icon" type="image/png" href="/lms.png"/>
-    </head>
-    <body>
-        <div th:replace ="nav_bar :: header_menu">
-        </div>
-        <div class="container-fluid">
-            <div class="text-center">
-                <h1>In Ho Chi Minh city</h1>
-                <li>Address: 1 Le Loi, Ward Ben Nghe, District 1</li>
-                <li>Phone: 0999999999</li>
-                <li>Fax: (84 24) 3974 3036</li>
-                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.4595062148346!2d106.7010514442801!3d10.776075269469994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f47ade72c83%3A0xe1f236f926a83d4d!2zMSBMw6ogTOG7o2ksIELhur9uIE5naMOpLCBRdeG6rW4gMSwgSOG7kyBDaMOtIE1pbmgsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1552750558074" width="450" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
-            </div>
+    <th:block th:insert="~{fragments :: link}"></th:block>
 
+    <th:block th:insert="~{fragments :: head/script}"></th:block> 
+    <link rel="shortcut icon" type="image/png" href="/lms.png"/>
+</head>
+<body>
+    <div th:replace ="nav_bar :: header_menu">
+    </div>
+    <div class="container-fluid">
+        <div class="text-center">
+            <h1 class="mt-4">About Us:</h1>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2>In Ho Chi Minh city</h1>
+                        <br>Address: 1 Le Loi, Ward Ben Nghe, District 1</br>
+                        <br>Phone: 0999999999</br>
+                        <br>Fax: (84 24) 3974 3036</br>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.4595062148346!2d106.7010514442801!3d10.776075269469994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f47ade72c83%3A0xe1f236f926a83d4d!2zMSBMw6ogTOG7o2ksIELhur9uIE5naMOpLCBRdeG6rW4gMSwgSOG7kyBDaMOtIE1pbmgsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1552750558074" width="450" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+                </div>
+            </div>
         </div>
-    </body>
+    </div>
+    <div th:replace ="nav_bar :: footer_menu">
+    </div>
+</body>
 </html>

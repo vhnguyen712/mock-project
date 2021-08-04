@@ -11,9 +11,6 @@ and open the template in the editor.
         <title>EXAM</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <script src="https://kit.fontawesome.com/a7e26ec4f2.js" crossorigin="anonymous"></script>
         <link href="../static/css/course.css" th:href="@{/css/course.css}" rel="stylesheet"/>
     <th:block th:insert="~{fragments :: link}"></th:block>
 
@@ -52,6 +49,8 @@ and open the template in the editor.
         </form>
 
     </div>
+    <div th:replace ="nav_bar :: footer_menu">
+    </div>
 
     <script>
         function startTimer(duration, display) {
@@ -76,7 +75,7 @@ and open the template in the editor.
 
 
 
-            let timeStart = document.querySelector('#duration').getAttribute("value")*60,
+            let timeStart = document.querySelector('#duration').getAttribute("value") * 60,
                     display = document.querySelector('#time');
             startTimer(timeStart, display);
         };

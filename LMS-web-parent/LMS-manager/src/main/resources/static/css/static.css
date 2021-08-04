@@ -1,0 +1,93 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Aug 4, 2021, 8:39:57 AM
+    Author     : LENOVO
+*/
+
+.alert {
+    position: static;
+    padding: .75rem 1.25rem;
+    margin-bottom: 0.75rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    width: 71rem;
+    margin-inline: auto;
+    text-align: center;
+    border-radius: 0.75rem!important;
+}
+
+.h2, h2 {
+    font-size: 2.5rem;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    margin-bottom: .5rem;
+    font-weight: revert;
+    line-height: 2.5;
+    color: #277373;
+}
+
+.rounded {
+    border-radius: .75rem!important;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.input-group>:not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+    margin: 11px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.input-group:not(.has-validation)>.dropdown-toggle:nth-last-child(n+3), .input-group:not(.has-validation)>:not(:last-child):not(.dropdown-toggle):not(.dropdown-menu) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    margin: auto;
+}
+
+.navbar {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding: .5rem 1rem;
+    padding-bottom: 1.25rem;
+    padding-top: 1.25rem;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: #f8f9fa;
+    font-size: large;
+}
+
+.pb-5, .py-5 {
+    padding-bottom: 1rem!important;
+}
+
+.pt-5, .py-5 {
+    padding-top: 1rem!important;
+}
+
+.bg {
+    background-color: #52a9a9;
+}
+
+.fa-search:before {
+    content: "\f002";
+    color: #277373;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #52a9a9;
+    border-color: #52a9a9;
+}

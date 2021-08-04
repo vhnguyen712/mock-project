@@ -10,8 +10,6 @@ and open the template in the editor.
         <title>Course Resource</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <script src="https://kit.fontawesome.com/a7e26ec4f2.js" crossorigin="anonymous"></script>
     <th:block th:insert="~{fragments :: link}"></th:block>
 
     <th:block th:insert="~{fragments :: head/script}"></th:block>
@@ -36,6 +34,8 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
+    </div>
+    <div th:replace ="nav_bar :: footer_menu">
     </div>
 </body>
 </html>

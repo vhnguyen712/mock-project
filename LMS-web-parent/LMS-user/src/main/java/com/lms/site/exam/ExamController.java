@@ -196,10 +196,10 @@ public class ExamController {
 
         String email = userService.getEmailOfAuthenticatedUser(request);
 
-        List<StudentExam> listStudentExams = studentExamService.getListStudentExamByEmail(email);
+        List<Exam> listExam = studentExamService.getListExamByEmail(email);
 
-        if (listStudentExams != null) {
-            model.addAttribute("listStudentExams", listStudentExams);
+        if (listExam != null) {
+            model.addAttribute("listExam", listExam);
         } else {
             model.addAttribute("Empty", "No exam found.");
         }
@@ -207,7 +207,21 @@ public class ExamController {
         return "/my_exams/my_result";
     }
 
-    @GetMapping("/my_exams/my_result/{stu_exam_id}")
+    @GetMapping("/my_exams/my_result/{exam_id}")
+    public String showHistory(@PathVariable("exam_id") int id, Model model, HttpServletRequest request) {
+
+        List<StudentExam> listStudentExams = studentExamService.getListStudentExamByExamId(id);
+
+        if (listStudentExams != null) {
+            model.addAttribute("listStudentExams", listStudentExams);
+        } else {
+            model.addAttribute("Empty", "No exam found.");
+        }
+
+        return "/my_exams/history";
+    }
+
+    @GetMapping("/my_exams/history/{stu_exam_id}")
     public String showDetails(@PathVariable("stu_exam_id") int id, Model model, HttpServletRequest request) {
 
         List<StudentAnswer> listStudentAnswers = studentAnswersService.getListAnswerByExamID(id);

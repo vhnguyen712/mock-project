@@ -37,4 +37,6 @@ public class MemberService {
     public void update(Integer id,boolean enable){
         memberRepository.banMember(id,enable);
     }
+    
+    
 }   

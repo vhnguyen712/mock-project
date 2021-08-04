@@ -7,63 +7,61 @@ and open the template in the editor.
 
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<head>
-    <title>MY EXAM PAGE</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://kit.fontawesome.com/a7e26ec4f2.js" crossorigin="anonymous"></script>
-    <link href="../static/css/course.css" th:href="@{/css/course.css}" rel="stylesheet"/>
+    <head>
+        <title>MY EXAM PAGE</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../static/css/course.css" th:href="@{/css/course.css}" rel="stylesheet"/>
     <th:block th:insert="~{fragments :: link}"></th:block>
 
     <th:block th:insert="~{fragments :: head/script}"></th:block>
 </head>
 <body>
-<div th:replace ="nav_bar :: header_menu">
-</div>
-<div class="container-fluid" >
-    <div class="text-center">
-        <h1>All My Exam</h1>
+    <div th:replace ="nav_bar :: header_menu">
     </div>
-    <div th:if= "${Empty != null}" class="alert alert-danger" role="alert" th:text="${Empty}">
-    </div>
-    <form class='searchbox' style="width: 30rem;">
-        <div class="input-group rounded">
-            <input class="form-control rounded" aria-label="Search" type="text" placeholder="Search.." aria-describedby="search-addon" ><span class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></span>
+    <div class="container-fluid" >
+        <div class="text-center">
+            <h1>All My Exam</h1>
         </div>
-    </form>
+        <div th:if= "${Empty != null}" class="alert alert-danger" role="alert" th:text="${Empty}">
+        </div>
+        <form class='searchbox' style="width: 30rem;">
+            <div class="input-group rounded">
+                <input class="form-control rounded" aria-label="Search" type="text" placeholder="Search.." aria-describedby="search-addon" ><span class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></span>
+            </div>
+        </form>
 
-    <div class="text-center" style="margin-bottom: 5%">
-        <a th:href="@{'/my_exams/'}" class="btn btn-primary">Available Exam</a>
-        <a th:href="@{'/my_exams/my_result'}" class="btn btn-primary">My result</a>
-    </div>
+        <div class="text-center" style="margin-bottom: 5%">
+            <a th:href="@{'/my_exams/'}" class="btn btn-primary">Available Exam</a>
+            <a th:href="@{'/my_exams/my_result'}" class="btn btn-primary">My result</a>
+        </div>
 
-    <div th:each="stuExam: ${listStudentExams}" style="margin-bottom: 20px">
-        <div class="card">
-            <div class="card-body">
-                <h3 class="card-title" th:text="${stuExam.exam.course.name}"></h3>
-                <div th:text="${stuExam.exam.name}"></div>
-                Grade: <div th:text="${stuExam.grade}"></div>
-                <a th:href="@{'/my_exams/my_result/' + ${stuExam.id}}" class="btn btn-primary">Show Details</a>
+        <div th:each="exam: ${listExam}" style="margin-bottom: 20px">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title" th:text="${exam.course.name}"></h3>
+                    <div th:text="${exam.name}"></div>
+                    <a th:href="@{'/my_exams/my_result/' + ${exam.id}}" class="btn btn-primary">Show Details</a>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-<script>
-    const searchEl = document.querySelector('.searchbox');
-    const x = document.querySelectorAll('.card-title, .card-text');
+        <div th:replace ="nav_bar :: footer_menu">
+        </div>
+        <script>
+            const searchEl = document.querySelector('.searchbox');
+            const x = document.querySelectorAll('.card-title, .card-text');
 
-    function search(e) {
-        x.forEach((item, index) => {
-            if (!item.innerHTML.toLowerCase().includes((e.target.value.toString()).toLowerCase())) {
-                item.parentElement.style.display = 'none';
-            } else {
-                item.parentElement.style.display = 'block';
+            function search(e) {
+                x.forEach((item, index) => {
+                    if (!item.innerHTML.toLowerCase().includes((e.target.value.toString()).toLowerCase())) {
+                        item.parentElement.style.display = 'none';
+                    } else {
+                        item.parentElement.style.display = 'block';
+                    }
+                })
             }
-        })
-    }
 
-    searchEl.addEventListener("keyup", search);
-</script>
+            searchEl.addEventListener("keyup", search);
+        </script>
 </body>
 </html>
