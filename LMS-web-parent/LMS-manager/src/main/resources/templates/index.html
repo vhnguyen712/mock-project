@@ -9,13 +9,11 @@
     <div th:replace ="nav_bar :: header_menu">
     </div>
     <div class="container-fluid">
-        <div>
+        <div style="padding-bottom: 47%">
             <h2>Welcome to Openolat Control</h2>
-            <a th:href="@{/account}" sec:authentication="name"></a>
-            <span sec:authentication="principal.authorities"></span>
         </div>
     </div>
-    <div th:replace ="nav_bar :: footer_menu">
+    <div th:replace ="nav_bar :: footer_menu" style="padding-bottom: 54%">
     </div>
 </body>
 </html>
