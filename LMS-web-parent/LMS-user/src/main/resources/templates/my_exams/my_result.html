@@ -36,34 +36,32 @@ and open the template in the editor.
             <a th:href="@{'/my_exams/my_result'}" class="btn btn-primary">My result</a>
         </div>
 
-        <div th:each="stuExam: ${listStudentExams}" style="margin-bottom: 20px">
+        <div th:each="exam: ${listExam}" style="margin-bottom: 20px">
             <div class="card">
                 <div class="card-body">
-                    <h3 class="card-title" th:text="${stuExam.exam.course.name}"></h3>
-                    <div th:text="${stuExam.exam.name}"></div>
-                    Grade: <div th:text="${stuExam.grade}"></div>
-                    <a th:href="@{'/my_exams/my_result/' + ${stuExam.id}}" class="btn btn-primary">Show Details</a>
+                    <h3 class="card-title" th:text="${exam.course.name}"></h3>
+                    <div th:text="${exam.name}"></div>
+                    <a th:href="@{'/my_exams/my_result/' + ${exam.id}}" class="btn btn-primary">Show Details</a>
                 </div>
             </div>
         </div>
-    </div>
-    <div th:replace ="nav_bar :: footer_menu">
-    </div>
-    <script>
-        const searchEl = document.querySelector('.searchbox');
-        const x = document.querySelectorAll('.card-title, .card-text');
+        <div th:replace ="nav_bar :: footer_menu">
+        </div>
+        <script>
+            const searchEl = document.querySelector('.searchbox');
+            const x = document.querySelectorAll('.card-title, .card-text');
 
-        function search(e) {
-            x.forEach((item, index) => {
-                if (!item.innerHTML.toLowerCase().includes((e.target.value.toString()).toLowerCase())) {
-                    item.parentElement.style.display = 'none';
-                } else {
-                    item.parentElement.style.display = 'block';
-                }
-            })
-        }
+            function search(e) {
+                x.forEach((item, index) => {
+                    if (!item.innerHTML.toLowerCase().includes((e.target.value.toString()).toLowerCase())) {
+                        item.parentElement.style.display = 'none';
+                    } else {
+                        item.parentElement.style.display = 'block';
+                    }
+                })
+            }
 
-        searchEl.addEventListener("keyup", search);
-    </script>
+            searchEl.addEventListener("keyup", search);
+        </script>
 </body>
 </html>
