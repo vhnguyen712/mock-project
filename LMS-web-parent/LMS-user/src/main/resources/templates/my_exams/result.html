@@ -7,24 +7,22 @@ and open the template in the editor.
 
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<head>
-    <title>MY RESULT PAGE</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://kit.fontawesome.com/a7e26ec4f2.js" crossorigin="anonymous"></script>
-    <link href="../static/css/course.css" th:href="@{/css/course.css}" rel="stylesheet"/>
+    <head>
+        <title>MY RESULT PAGE</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../static/css/course.css" th:href="@{/css/course.css}" rel="stylesheet"/>
     <th:block th:insert="~{fragments :: link}"></th:block>
 
     <th:block th:insert="~{fragments :: head/script}"></th:block>
 </head>
 <body>
-<div th:replace ="nav_bar :: header_menu">
-</div>
-<div class="container-fluid" >
-    <div class="text-center">
-        <h1>My Result</h1>
+    <div th:replace ="nav_bar :: header_menu">
     </div>
+    <div class="container-fluid" >
+        <div class="text-center">
+            <h1>My Result</h1>
+        </div>
 
         <div class="card">
             <div class="card-body">
@@ -36,22 +34,24 @@ and open the template in the editor.
             </div>
         </div>
 
-</div>
-<script>
-    const searchEl = document.querySelector('.searchbox');
-    const x = document.querySelectorAll('.card-title, .card-text');
+    </div>
+    <div th:replace ="nav_bar :: footer_menu">
+    </div>
+    <script>
+        const searchEl = document.querySelector('.searchbox');
+        const x = document.querySelectorAll('.card-title, .card-text');
 
-    function search(e) {
-        x.forEach((item, index) => {
-            if (!item.innerHTML.toLowerCase().includes((e.target.value.toString()).toLowerCase())) {
-                item.parentElement.style.display = 'none';
-            } else {
-                item.parentElement.style.display = 'block';
-            }
-        })
-    }
+        function search(e) {
+            x.forEach((item, index) => {
+                if (!item.innerHTML.toLowerCase().includes((e.target.value.toString()).toLowerCase())) {
+                    item.parentElement.style.display = 'none';
+                } else {
+                    item.parentElement.style.display = 'block';
+                }
+            })
+        }
 
-    searchEl.addEventListener("keyup", search);
-</script>
+        searchEl.addEventListener("keyup", search);
+    </script>
 </body>
 </html>

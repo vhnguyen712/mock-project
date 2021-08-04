@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-<title>Register Success</title>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-	crossorigin="anonymous" />
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+        <title>Register Success</title>
+    <th:block th:insert="~{fragments :: link}"></th:block>
+
+    <th:block th:insert="~{fragments :: head/script}"></th:block>
 </head>
-&nbsp;&nbsp;
 <body>
-			<div class="container-fuild">
-					
-			<div th:replace ="nav_bar :: header_menu">
-			</div>
-			
-			<div class="text-center">
-				<h2>Customer Registration</h2>
-				<h4>You have registered successfully </h4>
-				<p>Check your mail to login</p>
-				<p><a th:href="@{/login}">Login here</a></p>
-			</div>
-		</div>
+    <div class="container-fuild">
+
+        <div th:replace ="nav_bar :: header_menu">
+        </div>
+
+        <div class="text-center">
+            <h2>Customer Registration</h2>
+            <h4>You have registered successfully </h4>
+            <p>Check your mail to login</p>
+            <p><a th:href="@{/login}">Login here</a></p>
+        </div>
+    </div>
+    <div th:replace ="nav_bar :: footer_menu">
+    </div>
 </body>
 </html>

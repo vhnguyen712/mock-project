@@ -7,106 +7,107 @@ and open the template in the editor.
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">	
     <head>
-        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    </head>
-    <body>
-        <div class="container-fuild">
-            <div th:replace ="nav_bar :: header_menu"></div>
-            <div class="text-center">
-                <h2>Edit Quiz & Assign to Exams</h2>
-            </div>
-            &nbsp;
-            <div th:if="${message != mull}" class="alert alert-success text-center">
-                [[${message}]]
-            </div>
-            &nbsp;
+    <th:block th:insert="~{fragments :: link}"></th:block>
 
-            <form th:action="@{/create_question}" method="post" style="max-width: 600px; margin: 0 auto">
-                <input type="hidden" th:value="${question.id}" name="questionID"/>
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">Select Exam: </label>
-                    <div class="col-sm-8">
-                        <select name="optExam">
-                            <option value="">Choose your option</option>
-                            <optgroup th:each="course : ${courses}"
-                                      th:label="${course.name}">
-                                <option th:each="exam : ${course.exams}" 
-                                    th:value="${exam.id}"
-                                        th:utext="${exam.name}"/>
-                            </optgroup>
-                        </select>
-                    </div>
-                </div>	
-                &nbsp;
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">Question: </label>
-                    <div class="col-sm-8">
-                        <input  name="txtquestion" th:value="${question.question}" class="form-control" required="required">
-                    </div>
-                </div>	
-                &nbsp;
-                <div class="form-group row">
-                    <label >Set Your Answer here and select the correct option </label>
+    <th:block th:insert="~{fragments :: head/script}"></th:block>
+</head>
+<body>
+    <div th:replace ="nav_bar :: header_menu"></div>
+    <div class="container-fuild">
 
-                </div>	
-                &nbsp;
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">Answer 1: </label>
-                    <div class="col-sm-8">
-                        <input type="hidden" th:value="${answer1.id}" name="answer1ID"/>
-                        <input class="form-control" name="answer1" required="required" th:value="${answer1.choice}">
-                        <input type="radio" name="correct" value="1" required="required"  th:checked="${answer1.correct}"> Is Correct
-                    </div>
-                </div>	
-                &nbsp;
-                &nbsp;
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">Answer 2: </label>
-                    <div class="col-sm-8">
-                        <input type="hidden" th:value="${answer2.id}" name="answer2ID"/>
-                        <input class="form-control" name="answer2" required="required" th:value="${answer2.choice}">
-                        <input type="radio" name="correct" value="2" required="required" th:checked="${answer2.correct}"> Is Correct
-                    </div>
-                </div>	
-                &nbsp;
-                &nbsp;
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">Answer 3: </label>
-                    <div class="col-sm-8">
-                        <input type="hidden" th:value="${answer3.id}" name="answer3ID"/>
-                        <input class="form-control" name="answer3" required="required" th:value="${answer3.choice}">
-                        <input type="radio" name="correct" value="3" required="required" th:checked="${answer3.correct}"> Is Correct
-                    </div>
-                </div>	
-                &nbsp;
-                &nbsp;
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">Answer 4: </label>
-                    <div class="col-sm-8">
-                        <input type="hidden" th:value="${answer4.id}" name="answer4ID"/>
-                        <input class="form-control" name="answer4" required="required" th:value="${answer4.choice}">
-                        <input type="radio" name="correct" value="4" required="required" th:checked="${answer4.correct}"> Is Correct
-                    </div>
-                </div>	
-                &nbsp;
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">Is Active: </label>
-                    <div class="col-sm-8">
-                        <input type="radio" name="active" value="true" th:checked="${yes}" required="required">Yes
-                        <input type="radio" name="active" value="false" th:checked="${no}" required="required">No
-                    </div>
-                </div>	
-                &nbsp;
-                <div class="text-center">
-                    <input type="submit" name="submit" value="Save" class="btn btn-primary ">
-                </div>
-
-            </form>
-
+        <div class="text-center">
+            <h2>Edit Quiz & Assign to Exams</h2>
         </div>
-    </body>
+        &nbsp;
+        <div th:if="${message != mull}" class="alert alert-success text-center">
+            [[${message}]]
+        </div>
+        &nbsp;
+
+        <form th:action="@{/create_question}" method="post" style="max-width: 600px; margin: 0 auto">
+            <input type="hidden" th:value="${question.id}" name="questionID"/>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Select Exam: </label>
+                <div class="col-sm-8">
+                    <select name="optExam">
+                        <option value="">Choose your option</option>
+                        <optgroup th:each="course : ${courses}"
+                                  th:label="${course.name}">
+                            <option th:each="exam : ${course.exams}" 
+                                    th:value="${exam.id}"
+                                    th:utext="${exam.name}"/>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>	
+            &nbsp;
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Question: </label>
+                <div class="col-sm-8">
+                    <input  name="txtquestion" th:value="${question.question}" class="form-control" required="required">
+                </div>
+            </div>	
+            &nbsp;
+            <div class="form-group row">
+                <label >Set Your Answer here and select the correct option </label>
+
+            </div>	
+            &nbsp;
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Answer 1: </label>
+                <div class="col-sm-8">
+                    <input type="hidden" th:value="${answer1.id}" name="answer1ID"/>
+                    <input class="form-control" name="answer1" required="required" th:value="${answer1.choice}">
+                    <input type="radio" name="correct" value="1" required="required"  th:checked="${answer1.correct}"> Is Correct
+                </div>
+            </div>	
+            &nbsp;
+            &nbsp;
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Answer 2: </label>
+                <div class="col-sm-8">
+                    <input type="hidden" th:value="${answer2.id}" name="answer2ID"/>
+                    <input class="form-control" name="answer2" required="required" th:value="${answer2.choice}">
+                    <input type="radio" name="correct" value="2" required="required" th:checked="${answer2.correct}"> Is Correct
+                </div>
+            </div>	
+            &nbsp;
+            &nbsp;
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Answer 3: </label>
+                <div class="col-sm-8">
+                    <input type="hidden" th:value="${answer3.id}" name="answer3ID"/>
+                    <input class="form-control" name="answer3" required="required" th:value="${answer3.choice}">
+                    <input type="radio" name="correct" value="3" required="required" th:checked="${answer3.correct}"> Is Correct
+                </div>
+            </div>	
+            &nbsp;
+            &nbsp;
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Answer 4: </label>
+                <div class="col-sm-8">
+                    <input type="hidden" th:value="${answer4.id}" name="answer4ID"/>
+                    <input class="form-control" name="answer4" required="required" th:value="${answer4.choice}">
+                    <input type="radio" name="correct" value="4" required="required" th:checked="${answer4.correct}"> Is Correct
+                </div>
+            </div>	
+            &nbsp;
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Is Active: </label>
+                <div class="col-sm-8">
+                    <input type="radio" name="active" value="true" th:checked="${yes}" required="required">Yes
+                    <input type="radio" name="active" value="false" th:checked="${no}" required="required">No
+                </div>
+            </div>	
+            &nbsp;
+            <div class="text-center">
+                <input type="submit" name="submit" value="Save" class="btn btn-primary ">
+            </div>
+
+        </form>
+
+    </div>
+    <div th:replace ="nav_bar :: footer_menu">
+    </div>
+</body>
 </html>

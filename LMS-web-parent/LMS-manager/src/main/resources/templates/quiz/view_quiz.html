@@ -1,72 +1,77 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="fragments :: page_head('User - Openolat Admin', 'none')"></head>
+    <head th:replace="fragments :: page_head('User - Openolat Admin', 'none')">
+    <th:block th:insert="~{fragments :: link}"></th:block>
 
-    <body>
-        <div class="container-fluid">
-            <div>
-                <div th:replace ="nav_bar :: header_menu">
-                </div>
+    <th:block th:insert="~{fragments :: head/script}"></th:block>
+</head>
 
-                <div class="text-center">
-                    <h2>View Quiz & Edit Quiz</h2>
-                </div>
-                <div>&nbsp;</div>
+<body>
+    <div th:replace ="nav_bar :: header_menu">
+    </div>
+    <div class="container-fluid">
+        <div>
 
-                <div><a th:href="@{/create_question}">Create Quiz </a></div>
-                &nbsp;
+            <div class="text-center">
+                <h2>View Quiz & Edit Quiz</h2>
+            </div>
+            <div>&nbsp;</div>
 
-                <div th:if="${message != mull}" class="alert alert-success text-center">[[${message}]]</div>
-                &nbsp;
+            <div><a th:href="@{/create_question}">Create Quiz </a></div>
+            &nbsp;
 
-                <div >
-                    <table  class="table table-bordered table-striped table-hover table-responsive-xl">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th>Question ID</th>
-                                <th>Exam Name </th>
-                                <th>Question</th>												
-                                <th>Is Active</th>
-                                <th></th>
-                            </tr>	
-                        </thead>
-                                   
-                                    <tbody th:if="${listQuestions != null}">
-                                            <tr th:each="question: ${listQuestions}">
-                                                    <td>[[${question.id}]]</td>
-                                                    <td>[[${question.exam.name}]]</td>
-                                                    <td>[[${question.question}]]</td>
-                                                                                                    
-                                                    <td>
-                                                            <a th:if="${question.status == true}" class="fal fa-check-circle" th:href="@{'/view_quiz/' + ${question.id} + '/enable/false'}"></a>
-                                                            <a th:if="${question.status == false}" class="fal fa-times-circle" th:href="@{'/view_quiz/' + ${question.id} + '/enable/true'}"></a>
-                                                            
-                                                    </td>
-                                                    
-                                                    <td>
-                                                            <a class="fas fa-user-edit" th:userId="${question.id}" th:href="@{'/view_quiz/edit/' + ${question.id}}">Edit</a>
-                                                    &nbsp; 
-                                                            <a class="fas fa-user-slash link-delete" th:userId="${question.id}" onclick="return confirm('Are you sure you want to delete this question?');" th:href="@{'/view_quiz/delete/' + ${question.id}}">Delete</a>
-                                                    </td>
-                                            </tr>
-                                            
-                                    </tbody>
-                       
-                    </table>
-                </div>
+            <div th:if="${message != mull}" class="alert alert-success text-center">[[${message}]]</div>
+            &nbsp;
+
+            <div >
+                <table  class="table table-bordered table-striped table-hover table-responsive-xl">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Question ID</th>
+                            <th>Exam Name </th>
+                            <th>Question</th>												
+                            <th>Is Active</th>
+                            <th></th>
+                        </tr>	
+                    </thead>
+
+                    <tbody th:if="${listQuestions != null}">
+                        <tr th:each="question: ${listQuestions}">
+                            <td>[[${question.id}]]</td>
+                            <td>[[${question.exam.name}]]</td>
+                            <td>[[${question.question}]]</td>
+
+                            <td>
+                                <a th:if="${question.status == true}" class="fal fa-check-circle" th:href="@{'/view_quiz/' + ${question.id} + '/enable/false'}"></a>
+                                <a th:if="${question.status == false}" class="fal fa-times-circle" th:href="@{'/view_quiz/' + ${question.id} + '/enable/true'}"></a>
+
+                            </td>
+
+                            <td>
+                                <a class="fas fa-user-edit" th:userId="${question.id}" th:href="@{'/view_quiz/edit/' + ${question.id}}">Edit</a>
+                                &nbsp; 
+                                <a class="fas fa-user-slash link-delete" th:userId="${question.id}" onclick="return confirm('Are you sure you want to delete this question?');" th:href="@{'/view_quiz/delete/' + ${question.id}}">Delete</a>
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
             </div>
         </div>
+    </div>
 
-        <div class="text-center">
-                Total Question : [[${totalItem}]] - Page [[${pageNum}]] of
-                [[${totalPage}]] &nbsp;  
-                <span
-                    th:each="i: ${#numbers.sequence(1, totalPage)}"> <a
-                        th:if="${i != pageNum}" th:href="@{'/view_quiz/page/' +${i}}">
-                        [[${i}]] </a> <span th:unless="${i != pageNum}">[[${i}]] </span>
-                    &nbsp;&nbsp;
-                </span>
-            </div> 
-
-    </body>
+    <div class="text-center">
+        Total Question : [[${totalItem}]] - Page [[${pageNum}]] of
+        [[${totalPage}]] &nbsp;  
+        <span
+            th:each="i: ${#numbers.sequence(1, totalPage)}"> <a
+                th:if="${i != pageNum}" th:href="@{'/view_quiz/page/' +${i}}">
+                [[${i}]] </a> <span th:unless="${i != pageNum}">[[${i}]] </span>
+            &nbsp;&nbsp;
+        </span>
+    </div> 
+    <div th:replace ="nav_bar :: footer_menu">
+    </div>
+</body>
 </html>
