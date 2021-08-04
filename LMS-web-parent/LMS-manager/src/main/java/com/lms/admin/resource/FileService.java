@@ -37,9 +37,9 @@ public class FileService {
 
     public void copyFile(String url) throws Exception {
 
-        File file = new File("C:\\Users\\Admin\\Desktop\\MockProject\\mock-project\\LMS-web-parent\\LMS-manager\\src\\main\\resources\\upload\\" + url);
+        File file = new File(System.getProperty("user.dir") + "\\src\\main\\resources\\upload\\" + url);
         System.out.println(file.toString());
-        File copy = new File("C:\\Users\\Admin\\Desktop\\MockProject\\mock-project\\LMS-web-parent\\LMS-user\\src\\main\\resources\\upload\\" + url);
+        File copy = new File("D:\\Project Document\\Mock-Project\\mock-project\\LMS-web-parent\\LMS-user\\src\\main\\resources\\upload\\" + url);
 
         FileInputStream inputStream = null;
         FileOutputStream outputStream = null;
