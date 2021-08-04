@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.lms.commom.entity.User;
 import com.lms.site.Utility;
 import com.lms.site.sercurity.MyUserDetail;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @Controller
 public class UserController {
@@ -72,11 +73,16 @@ public class UserController {
 
 
     @PostMapping("/edit_profile")
-    public String editProfile(@ModelAttribute("user") User user, @AuthenticationPrincipal MyUserDetail userdl, Model model) {
+    public String editProfile(@ModelAttribute("user") User user, @AuthenticationPrincipal MyUserDetail userdl, Model model, HttpServletRequest request) {
+        
         user.setId(userdl.getUser().getId());
         userService.updateUserProfile(user);
-        model.addAttribute("SUCCESS", "Update profile successful !");
-        return "/profile";
+        boolean check = userService.checkAuthenticationType(request);
+        
+        model.addAttribute("SUCCESS", true);
+        model.addAttribute("check", check);
+                
+        return "profile";
     }
 
     @PostMapping("/change_password")
@@ -85,19 +91,25 @@ public class UserController {
         String oldpass = request.getParameter("oldpassword");
         String newpass = request.getParameter("newpassword");
         String confirm = request.getParameter("confirmpassword");
+        boolean check = userService.checkAuthenticationType(request);
         if (passwordEncoder.matches(oldpass, current)) {
             if (newpass.equals(confirm)) {
                 String encode = passwordEncoder.encode(newpass);
                 userService.changePassword(encode, userdl.getUser().getId());
-                model.addAttribute("SUCCESS", "Chasnge password successful !");
-                return "index";
+                SecurityContextHolder.clearContext();
+                model.addAttribute("SUCCESS", true);
+                return "login";
             } else {
-                model.addAttribute("ERROR", "Confirm password not match, change's not saved.");
-                return "index";
+                model.addAttribute("user",userdl.getUser());
+                model.addAttribute("ERROR", "Your confirm password doesn't match, pls try again !");
+                model.addAttribute("check", check);
+                return "profile";
             }
         }
-        model.addAttribute("ERROR", "Your current password is wrong, change's not saved.");
-        return "index";
+        model.addAttribute("user",userdl.getUser());
+        model.addAttribute("ERROR", "Your current password is wrong, pls try again !");
+        model.addAttribute("check", check);
+        return "profile";
 
     }
 }
