@@ -38,13 +38,12 @@ and open the template in the editor.
         <a th:href="@{'/my_exams/my_result'}" class="btn btn-primary">My result</a>
     </div>
 
-    <div th:each="stuExam: ${listStudentExams}" style="margin-bottom: 20px">
+    <div th:each="exam: ${listExam}" style="margin-bottom: 20px">
         <div class="card">
             <div class="card-body">
-                <h3 class="card-title" th:text="${stuExam.exam.course.name}"></h3>
-                <div th:text="${stuExam.exam.name}"></div>
-                Grade: <div th:text="${stuExam.grade}"></div>
-                <a th:href="@{'/my_exams/my_result/' + ${stuExam.id}}" class="btn btn-primary">Show Details</a>
+                <h3 class="card-title" th:text="${exam.course.name}"></h3>
+                <div th:text="${exam.name}"></div>
+                <a th:href="@{'/my_exams/my_result/' + ${exam.id}}" class="btn btn-primary">Show Details</a>
             </div>
         </div>
     </div>
