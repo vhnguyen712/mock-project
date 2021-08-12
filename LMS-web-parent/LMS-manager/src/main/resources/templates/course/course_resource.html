@@ -36,7 +36,7 @@ and open the template in the editor.
                         <a href="${Resource.url}" download>
                             <span class="card-text" th:text="${Resource.url}"></span>
                         </a>
-                    </div>
+                    </div></br>
                     <input type="button" class="btn btn-primary" id="addresourcebtn" value="Add Resources" th:onclick="|showForm('${Chapter.key.id}')|">
                     <form th:action="@{/upload_file}" method="post" enctype="multipart/form-data" class="form row">
                         <div class="border border-secondary rounded p-3" th:id="'addresourceform'+${Chapter.key.id}" style="display : none">

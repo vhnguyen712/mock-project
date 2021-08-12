@@ -47,14 +47,27 @@ public class ChapterController {
     }
 
     @PostMapping("/add_chapter")
-    public String createChapter(Chapter chapter, HttpServletRequest request, Model model) {
+    public String createChapter(Chapter chaptertmp, HttpServletRequest request, Model model) {
         int id = Integer.parseInt(request.getParameter("courseId"));
         Course course = courseService.findCourseById(id);
-        chapterService.saveChapter(chapter, course);
+        chapterService.saveChapter(chaptertmp, course);
         List<Chapter> chapterByCourseId = chapterService.getChapterByCourseId(id);
+        List<Exam> listExam = examService.getExamByCourse(course.getId());
 
-        model.addAttribute("chapter", chapterByCourseId);
-        return "course/course_resource";
+        LinkedHashMap<Chapter, List<Resources>> map = new LinkedHashMap<>();
+
+        for (Chapter chapter : chapterByCourseId) {
+            System.out.println(chapter.getName());
+            List<Resources> resourceByChapterId = resourceService.getResourceByChapterId(chapter.getId());
+
+            map.put(chapter, resourceByChapterId);
+
+        }
+        //model Exam - ko xoa
+        model.addAttribute("id", course.getId());
+
+        model.addAttribute("chapter", map);
+        return "course/course_resource.html";
     }
 
     @GetMapping("/join")

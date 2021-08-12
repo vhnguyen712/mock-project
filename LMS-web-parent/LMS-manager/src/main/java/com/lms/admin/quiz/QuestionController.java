@@ -136,6 +136,7 @@ public class QuestionController {
         // answer correct
         String correct = request.getParameter("correct");
 
+        System.out.println("Correct = " + correct);
         // question : question , status
         String txtQuestion = request.getParameter("txtquestion");
         boolean active = Boolean.valueOf(request.getParameter("active"));
@@ -237,6 +238,7 @@ public class QuestionController {
 //                entityManager.persist(question);
                 questionService.saveQuestion(question);
 
+                System.out.println("Save success");
                 // tải lại list exam để tạo tiếp
                 List<Exam> listExam = examService.findAll();
                 model.addAttribute("exams", listExam);
